@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+		"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+		"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+	<!-- The main layout. -->
+	<definition name="mainLayout" template="/layout/mainLayout.jsp">
+		<put-attribute name="title" value="Timetable"/>
+	</definition>
+
+	<!-- The list screen for all lecturers. -->
+	<definition name="lecturerList" extends="mainLayout">
+		<put-attribute name="content" value="/lecturerList.jsp"/>
+	</definition>
+	
+	<!-- The form for a single car. -->
+	<definition name="lecturerForm" extends="mainLayout">
+		<put-attribute name="content" value="/lecturerForm.jsp"/>
+	</definition>
+
+</tiles-definitions>
