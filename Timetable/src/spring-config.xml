@@ -54,5 +54,19 @@
 	<bean id="lecturerService" class="de.nak.timetable.service.LecturerServiceImpl">
 		<property name="lecturerDAO" ref="lecturerDAO"/>
 	</bean>
+	
+	<!-- Event DAO -->
+	<bean id="eventDAO" class="de.nak.timetable.dao.EventDAO">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<!-- Event Service -->
+	<bean id="eventService" class="de.nak.timetable.service.EventServiceImpl">
+		<property name="eventDAO" ref="eventDAO"/>
+	</bean>
+	
+	<!-- Collision Service -->
+	<bean id="collisionService" class="de.nak.timetable.service.CollisionServiceImpl">
+	</bean>
 
 </beans>

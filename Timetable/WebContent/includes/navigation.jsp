@@ -22,10 +22,10 @@
                     <a href="#"><i class="fa fa-calendar fa-fw"></i> Events<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href=#"><i class="fa fa-list fa-fw"></i> Overview</a>
+                            <a href="ShowEventList.action"><i class="fa fa-list fa-fw"></i> Overview</a>
                         </li>
                         <li>
-                            <a href=#"><i class="fa fa-pencil fa-fw"></i> Create</a>
+                            <a href="AddEvent.action"><i class="fa fa-pencil fa-fw"></i> Create</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
@@ -35,13 +35,13 @@
                     <a href="#"><i class="fa fa-database fa-fw"></i> Data<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href=#"><i class="fa fa-home fa-fw"></i> Rooms</a>
+                            <a href="#"><i class="fa fa-home fa-fw"></i> Rooms</a>
                         </li>
                        <li>
-                            <a href=#"><i class="fa fa-user fa-fw"></i> Lecturers</a>
+                            <a href="ShowLecturerList.action"><i class="fa fa-user fa-fw"></i> Lecturers</a>
                         </li>
                         <li>
-                            <a href=#"><i class="fa fa-users fa-fw"></i> Classes</a>
+                            <a href="#"><i class="fa fa-users fa-fw"></i> Classes</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->

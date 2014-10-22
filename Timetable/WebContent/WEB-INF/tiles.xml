@@ -15,9 +15,19 @@
 		<put-attribute name="content" value="/lecturerList.jsp"/>
 	</definition>
 	
-	<!-- The form for a single car. -->
+	<!-- The form for a single lecturer. -->
 	<definition name="lecturerForm" extends="mainLayout">
 		<put-attribute name="content" value="/lecturerForm.jsp"/>
+	</definition>
+	
+	<!-- The list screen for all events. -->
+	<definition name="eventList" extends="mainLayout">
+		<put-attribute name="content" value="/eventList.jsp"/>
+	</definition>
+	
+	<!-- The form for a single event. -->
+	<definition name="eventForm" extends="mainLayout">
+		<put-attribute name="content" value="/eventForm.jsp"/>
 	</definition>
 
 </tiles-definitions>

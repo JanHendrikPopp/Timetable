@@ -58,8 +58,12 @@
  id="${parameters.id?html}"<#rt/>
 </#if>
 
- class="form-control"<#rt/>
-
+ class="form-control<#rt/>
+<#if parameters.cssClass??>
+	 ${parameters.cssClass?html}"<#rt/>
+    <#else>
+	"<#rt/>
+</#if>
 <#if parameters.title??>
  title="${parameters.title?html}"<#rt/>
 </#if>

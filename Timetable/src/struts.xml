@@ -42,5 +42,39 @@
 			<result type="redirect">ShowLecturerList.action</result>
 		</action>
 		
+		
+		<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Event XXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+		
+		<!-- Action that displays the list of events. -->
+		<action name="ShowEventList" class="de.nak.timetable.action.ShowEventListAction">
+			<result type="tiles">eventList</result>
+		</action>
+		
+		<!-- Shows the empty form for a new event. -->
+		<action name="AddEvent">
+			<result type="tiles">eventForm</result>
+		</action>
+		
+		<!-- Saves the new or updated event into the database and shows the event list again. -->
+		<action name="SaveEvent" class="de.nak.timetable.action.EventAction" method="save">
+			<result type="redirect">ShowEventList.action</result>
+			<result type="tiles" name="input">eventForm</result>
+		</action>
+		
+		<!-- Action for the cancel button. Is required to avoid stack traces in log. -->
+		<action name="CancelEvent" class="de.nak.timetable.action.EventAction" method="cancel">
+			<result type="redirect">ShowEventList.action</result>
+		</action>
+
+		<!-- Loads a existing event and shows it in the event form. -->
+		<action name="EditEvent" class="de.nak.timetable.action.EventAction" method="load">
+			<result type="tiles">eventForm</result>
+		</action>
+		
+		<!-- Deletes the selected event and shows the event list again. -->
+		<action name="DeleteEvent" class="de.nak.timetable.action.EventAction" method="delete">
+			<result type="redirect">ShowEventList.action</result>
+		</action>
+		
 	</package>
 </struts>

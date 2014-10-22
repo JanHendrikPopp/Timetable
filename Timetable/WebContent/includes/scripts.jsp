@@ -18,3 +18,9 @@
 
 <!-- Data Table initialize -->
 <script src="js/datatable.initialize.js"></script>
+
+<!-- DateTimePicker Core JavaScript -->
+<script src="js/bootstrap-datetimepicker.js"></script>
+
+<!-- DateTimePicker Table initialize -->
+<script src="js/datetimepicker.initialize.js"></script>
