@@ -22,7 +22,7 @@
 				<prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.format_sql">true</prop>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
 			</props>
 		</property>
 	</bean>
@@ -58,6 +58,7 @@
 	<!-- Event DAO -->
 	<bean id="eventDAO" class="de.nak.timetable.dao.EventDAO">
 		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="lecturerDAO" ref="lecturerDAO"/>
 	</bean>
 	
 	<!-- Event Service -->

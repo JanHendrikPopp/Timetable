@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.SessionFactory;
 
 import de.nak.timetable.model.Event;
+import de.nak.timetable.model.Lecturer;
 
 /**
  * Event data access object.
@@ -15,12 +16,20 @@ public class EventDAO {
 	/** The Hibernate session factory. */
 	private SessionFactory sessionFactory;
 	
+	private LecturerDAO lecturerDAO;
+	
 	/**
 	 * Persists or merges the event into the database.
 	 *
 	 * @param event The event to persist. The given entity can be transient or detached.
 	 */
 	public void save(Event event) {
+		Lecturer lecturer = lecturerDAO.load(event.getLecturer().getId());
+		
+		//associate the event to the lecturer
+		lecturer.associateEvent(event);
+		
+		//save the event
 		sessionFactory.getCurrentSession().saveOrUpdate(event);
 	}
 	
@@ -40,6 +49,9 @@ public class EventDAO {
 	 * @param event The event to be deleted.
 	 */
 	public void delete(Event event) {
+		if(event.getLecturer() != null) {
+			event.getLecturer().detachEvent(event);
+		}
 		sessionFactory.getCurrentSession().delete(event);
 	}
 	
@@ -56,5 +68,10 @@ public class EventDAO {
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
+
+	public void setLecturerDAO(LecturerDAO lecturerDAO) {
+		this.lecturerDAO = lecturerDAO;
+	}
+	
 	
 }

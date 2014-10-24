@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -31,6 +33,8 @@ public class Event {
 	private Integer duration;
 	/** The lecturer's changeover Time. */
 	private Integer changeoverTime;
+	/** The lecturer */
+	private Lecturer lecturer;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -77,6 +81,16 @@ public class Event {
 	
 	public void setChangeoverTime(Integer changeoverTime) {
 		this.changeoverTime = changeoverTime;
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "LECTURER_ID")
+	public Lecturer getLecturer() {
+		return lecturer;
+	}
+
+	public void setLecturer(Lecturer lecturer) {
+		this.lecturer = lecturer;
 	}
 	
 }

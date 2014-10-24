@@ -1,5 +1,7 @@
 package de.nak.timetable.model;
 
+import java.util.Set;
+
 import javax.persistence.*;
 
 /**
@@ -24,6 +26,8 @@ public class Lecturer {
 	private String name;
 	/** The lecturer's changeover Time. */
 	private Integer changeoverTime;
+	/** The set of events */
+	private Set<Event> events;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -71,6 +75,15 @@ public class Lecturer {
 		this.changeoverTime = changeoverTime;
 	}
 	
+	@OneToMany(mappedBy = "lecturer")
+	public Set<Event> getEvents() {
+		return events;
+	}
+
+	public void setEvents(Set<Event> events) {
+		this.events = events;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -104,6 +117,40 @@ public class Lecturer {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
+	}
+	
+	/**
+	 * Associates the given event to the lecturer.
+	 * 
+	 * @param event
+	 *            The event to associate.
+	 */
+	public void associateEvent(Event event) {
+		if(event == null) {
+			throw new IllegalArgumentException();
+		}
+		if(event.getLecturer() != null && event.getLecturer().getEvents() != null) {
+			event.getLecturer().getEvents().remove(event);
+		}
+		if(!this.equals(event.getLecturer())) {
+			event.setLecturer(this);
+		}
+		if(!events.contains(event)) {
+			events.add(event);
+		}
+	}
+	
+	/**
+	 * Detaches event from this lecturer.
+	 */
+	public void detachEvent(Event event) {
+		if(event == null) {
+			throw new IllegalArgumentException();
+		}
+		if(this.equals(event.getLecturer())) {
+			event.setLecturer(null);
+		}
+		events.remove(event);
 	}
 	
 	

@@ -75,7 +75,7 @@ public class EventAction extends ActionSupport{
 	
 	@Override
 	public void validate() {
-		if(!proceed) {
+		if(!proceed && event != null) {
 			List<String> errors = collisionService.getAllCollisions(event);
 			System.out.println();
 			for (String error : errors) {

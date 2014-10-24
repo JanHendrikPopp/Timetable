@@ -17,6 +17,7 @@
 				<s:form>
 					<%-- Form fields for the event's attributes --%>
 					<s:hidden name="event.id"/>
+					<s:hidden name="event.lecturer.id" value="1"/>
 					<s:textfield name="event.name" key="lbl.eventTitle" size="40" maxlength="100" requiredLabel="true"/>
 					<s:textfield cssClass="form_datetime" name="event.eventStart" key="lbl.eventStart" size="10" maxlength="50" requiredLabel="true" value='%{getText("{0,date,dd.MM.yyyy HH:mm}",{event.eventStart})}'/>
 					<s:textfield name="event.duration" key="lbl.eventDuaration" size="10" maxlength="50" requiredLabel="true"/>

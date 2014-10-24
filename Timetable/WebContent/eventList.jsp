@@ -35,7 +35,7 @@
 								<td><s:property value="duration"/></td>
 								<td><s:property value="changeoverTime"/></td>
 								<td>Raum</td>
-								<td>Dozent</td>
+								<td><s:property value="lecturer.title"/> <s:property value="lecturer.name"/></td>
 								<td>Zenturie</td>
 								<td class="text-center">
 									<a href="
