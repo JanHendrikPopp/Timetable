@@ -27,7 +27,7 @@
 					<tbody>
 						<s:iterator value="lecturerList">
 							<tr>
-								<td><s:property value="gender"/></td>
+								<td><s:text name="lbl.%{gender}"></s:text></td>
 								<td><s:property value="title"/></td>
 								<td><s:property value="name"/></td>
 								<td><s:property value="changeoverTime"/></td>

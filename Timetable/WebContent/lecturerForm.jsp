@@ -17,7 +17,7 @@
 				<s:form>
 					<%-- Form fields for the lecturer's attributes --%>
 					<s:hidden name="lecturer.id"/>
-					<s:textfield name="lecturer.gender" key="lbl.gender" size="40" maxlength="100" requiredLabel="true"/>
+					<s:select key="lbl.gender" headerKey="-1" list="#{'MALE':'Herr', 'FEMALE':'Frau'}" name="lecturer.gender" />					
 					<s:textfield name="lecturer.title" key="lbl.title" size="10" maxlength="50" requiredLabel="true"/>
 					<s:textfield name="lecturer.name" key="lbl.name" size="10" maxlength="50" requiredLabel="true"/>
 					<s:textfield name="lecturer.changeoverTime" key="lbl.changeoverTime" size="10" maxlength="20" requiredLabel="true"/>
@@ -28,4 +28,18 @@
 			</div>
 		</div>
 	</div>
+	<s:if test="hasActionErrors()">
+   		<div class="col-lg-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<s:text name="lbl.warning"/>
+				</div>
+				<div class="panel-body">
+					<div class="errors">
+    					<s:actionerror/>
+   					</div>	
+				</div>
+			</div>
+		</div>
+	</s:if>
 </div>

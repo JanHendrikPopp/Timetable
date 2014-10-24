@@ -9,10 +9,15 @@ import javax.persistence.*;
  */
 @Entity
 public class Lecturer {
+	
+	public enum Gender {
+        MALE, FEMALE
+    }
+	
 	/** The identifier. */
 	private Long id;
 	/** The lecturer's gender. */
-	private String gender;
+	private Gender gender;
 	/** The lecturer's title. */
 	private String title;
 	/** The lecturer's name. */
@@ -30,12 +35,12 @@ public class Lecturer {
 		this.id = id;
 	}
 	
-	@Column(length = 10, nullable = false)
-	public String getGender() {
+	@Enumerated(EnumType.STRING)
+	public Gender getGender() {
 		return gender;
 	}
 	
-	public void setGender(String gender) {
+	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
 	
@@ -64,6 +69,41 @@ public class Lecturer {
 	
 	public void setChangeoverTime(Integer changeoverTime) {
 		this.changeoverTime = changeoverTime;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(this == obj)
+			return true;
+		if(obj == null)
+			return false;
+		if(getClass() != obj.getClass())
+			return false;
+		final Lecturer other = (Lecturer) obj;
+		if(title == null) {
+			if(other.title != null)
+				return false;
+		} else if (!title.equals(other.title))
+			return false;
+		if(gender == null) {
+			if(other.gender != null)
+				return false;
+		} else if (!gender.equals(other.gender))
+			return false;
+		if(name == null) {
+			if(other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
 	}
 	
 	

@@ -1,5 +1,7 @@
 package de.nak.timetable.action;
 
+import java.util.List;
+
 import com.opensymphony.xwork2.ActionSupport;
 
 import de.nak.timetable.model.Lecturer;
@@ -72,8 +74,10 @@ public class LecturerAction extends ActionSupport{
 	
 	@Override
 	public void validate() {
-		if(lecturer == null && lecturerId == null) {
-			addActionError(getText("msg.selectCar"));
+		if(lecturer != null) {
+			if(lecturerService.lecturerExists(lecturer)){
+				addActionError(getText("msg.validator.exists.lecturer"));
+			}
 		}
 	}
 

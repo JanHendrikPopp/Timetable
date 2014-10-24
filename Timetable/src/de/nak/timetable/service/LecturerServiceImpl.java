@@ -34,6 +34,20 @@ public class LecturerServiceImpl implements LecturerService{
 		return lecturerDAO.loadAll();
 	}
 
+	@Override
+	public Boolean lecturerExists(Lecturer lecturer) {
+		List<Lecturer> lecturers = lecturerDAO.loadAll();
+		for (Lecturer lec : lecturers) {
+			if(lecturer.equals(lec)) {
+				if(lecturer.getId() != null && lecturer.getId().equals(lec.getId()))
+					return false;
+				else
+					return true;
+			}
+		}
+		return false;
+	}
+	
 	public void setLecturerDAO(LecturerDAO lecturerDAO) {
 		this.lecturerDAO = lecturerDAO;
 	}

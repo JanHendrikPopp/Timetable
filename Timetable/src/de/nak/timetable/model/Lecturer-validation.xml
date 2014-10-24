@@ -5,28 +5,23 @@
 
 <validators>
 	<field name="gender">
-		<field-validator type="requiredstring">
-			<message key="msg.validator.required"/>
-		</field-validator>
-	</field>
-	<field name="title">
-		<field-validator type="requiredstring">
+		<field-validator type="required">
 			<message key="msg.validator.required"/>
 		</field-validator>
 	</field>
 	<field name="name">
 		<field-validator type="requiredstring">
-			<message key="msg.validator.required"/>
+			<message key="msg.validator.required.name"/>
 		</field-validator>
 	</field>
 	<field name="changeoverTime">
 		<field-validator type="required">
-			<message key="msg.validator.required"/>
+			<message key="msg.validator.required.changeoverTime"/>
 		</field-validator>
 		<field-validator type="int">
 			<param name="min">0</param>
 			<param name="max">200</param>
-			<message key="msg.validator.intRange"/>
+			<message key="msg.validator.intRange.changeoverTime"/>
 		</field-validator>
 	</field>
 </validators>

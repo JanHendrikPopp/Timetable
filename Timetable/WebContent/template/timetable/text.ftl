@@ -26,7 +26,7 @@
 	has-error has-feedback<#t/>
 </#if>
 "><#t/>
-<label class="control-label" for="inputSuccess">${parameters.label?html}<#t/></label>
+<label class="control-label" for="${parameters.id?html}">${parameters.label?html}<#t/></label>
 <#if hasFieldErrors>
 	<#list fieldErrors[parameters.name] as error>
 		<span> - ${error?html}</span><#t/>
