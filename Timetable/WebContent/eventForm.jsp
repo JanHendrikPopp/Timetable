@@ -48,4 +48,6 @@
 			</div>
 		</div>
 	</s:if>
-</div>	
+</div>
+
+<script src="js/event-functions.js"></script>	

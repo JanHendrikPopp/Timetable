@@ -77,4 +77,12 @@
 		</action>
 		
 	</package>
+	
+	
+	<package name="ajax" extends="json-default">
+		<action name="LoadLecturers" class="de.nak.timetable.action.AjaxPostLecturerListAction">
+			<result type="json" />
+		</action>
+	</package>
+	
 </struts>

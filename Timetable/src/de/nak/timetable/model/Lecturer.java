@@ -75,7 +75,7 @@ public class Lecturer {
 		this.changeoverTime = changeoverTime;
 	}
 	
-	@OneToMany(mappedBy = "lecturer")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "lecturer")
 	public Set<Event> getEvents() {
 		return events;
 	}
