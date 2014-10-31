@@ -5,6 +5,7 @@ import java.util.List;
 import com.opensymphony.xwork2.ActionSupport;
 
 import de.nak.timetable.model.Event;
+import de.nak.timetable.model.Lecturer;
 import de.nak.timetable.service.CollisionService;
 import de.nak.timetable.service.EventService;
 
@@ -28,13 +29,24 @@ public class EventAction extends ActionSupport{
 	/** */
 	private Boolean proceed = false;
 	
+	/** */
+	private Long lecturerId;
+	
+	/** */
+	private String lecturerName;
+	
 	/**
 	 * Saves the event to the database.
 	 *
 	 * @return the result string.
 	 */
 	public String save() {
-		eventService.saveEvent(event);
+		if(event.getId() != null) {
+			Event dbEvent = eventService.loadEvent(event.getId());
+			event.setLecturer(dbEvent.getLecturer());
+		}
+		
+		eventService.saveEvent(event, lecturerId);
 		return SUCCESS;
 	}
 	
@@ -58,6 +70,11 @@ public class EventAction extends ActionSupport{
 	 */
 	public String load() {
 		event = eventService.loadEvent(eventId);
+		if(event.getLecturer() != null) {
+			Lecturer lecturer = event.getLecturer();
+			lecturerId = lecturer.getId();
+			lecturerName = lecturer.getTitle() + lecturer.getName();
+		}
 		return SUCCESS;
 	}
 	
@@ -76,8 +93,7 @@ public class EventAction extends ActionSupport{
 	@Override
 	public void validate() {
 		if(!proceed && event != null) {
-			List<String> errors = collisionService.getAllCollisions(event);
-			System.out.println();
+			List<String> errors = collisionService.getAllCollisions(event, lecturerId);
 			for (String error : errors) {
 				addActionError(error);
 			}
@@ -106,6 +122,22 @@ public class EventAction extends ActionSupport{
 
 	public void setProceed(Boolean proceed) {
 		this.proceed = proceed;
+	}
+
+	public Long getLecturerId() {
+		return lecturerId;
+	}
+
+	public String getLecturerName() {
+		return lecturerName;
+	}
+
+	public void setLecturerName(String lecturerName) {
+		this.lecturerName = lecturerName;
+	}
+
+	public void setLecturerId(Long lecturerId) {
+		this.lecturerId = lecturerId;
 	}
 
 	public void setEventService(EventService eventService) {

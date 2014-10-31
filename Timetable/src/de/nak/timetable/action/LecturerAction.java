@@ -26,6 +26,11 @@ public class LecturerAction extends ActionSupport{
 	/** The lecturer service. */
 	private LecturerService lecturerService;
 	
+	public String add() {
+		lecturer = new Lecturer();
+		return SUCCESS;
+	}
+	
 	/**
 	 * Saves the lecturer to the database.
 	 *

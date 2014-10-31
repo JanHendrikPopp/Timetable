@@ -6,29 +6,42 @@
 <validators>
 	<field name="name">
 		<field-validator type="requiredstring">
-			<message key="msg.validator.required"/>
+			<message key="msg.validator.required.name"/>
 		</field-validator>
 	</field>
-		
-
+	<field name="eventStart">
+		<field-validator type="required">
+			<message key="msg.validator.required.eventStart"/>
+		</field-validator>
+	</field>
 	<field name="duration">
 		<field-validator type="required">
-			<message key="msg.validator.required"/>
+			<message key="msg.validator.required.duration"/>
 		</field-validator>
 		<field-validator type="int">
 			<param name="min">0</param>
-			<param name="max">200</param>
-			<message key="msg.validator.intRange"/>
+			<param name="max">600</param>
+			<message key="msg.validator.intRange.duartion"/>
 		</field-validator>
 	</field>
 	<field name="changeoverTime">
 		<field-validator type="required">
-			<message key="msg.validator.required"/>
+			<message key="msg.validator.required.changeoverTime"/>
 		</field-validator>
 		<field-validator type="int">
 			<param name="min">0</param>
 			<param name="max">200</param>
-			<message key="msg.validator.intRange"/>
+			<message key="msg.validator.intRange.changeoverTime"/>
+		</field-validator>
+	</field>
+	<field name="weeklyRecurrence">
+		<field-validator type="required">
+			<message key="msg.validator.required.weeklyRecurrence"/>
+		</field-validator>
+		<field-validator type="int">
+			<param name="min">0</param>
+			<param name="max">10</param>
+			<message key="msg.validator.intRange.weeklyRecurrence"/>
 		</field-validator>
 	</field>
 </validators>

@@ -64,10 +64,19 @@
 	<!-- Event Service -->
 	<bean id="eventService" class="de.nak.timetable.service.EventServiceImpl">
 		<property name="eventDAO" ref="eventDAO"/>
+		<property name="lecturerDAO" ref="lecturerDAO"/>
+	</bean>
+	
+	<bean id="timeCollisionValidator" class="de.nak.timetable.validators.TimeCollisionValidator" />
+	
+	<bean id="lecturerValidator" class="de.nak.timetable.service.LecturerCollisionValidator">
+		<property name="timeCollisionValidator" ref="timeCollisionValidator"/>
 	</bean>
 	
 	<!-- Collision Service -->
 	<bean id="collisionService" class="de.nak.timetable.service.CollisionServiceImpl">
+		<property name="lecturerDAO" ref="lecturerDAO"/>
+		<property name="lecturerValidator" ref="lecturerValidator"/>
 	</bean>
 
 </beans>

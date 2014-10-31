@@ -16,7 +16,7 @@ public interface EventService {
 	 *
 	 * @param event The event.
 	 */
-	void saveEvent(Event event);
+	void saveEvent(Event event, Long lecturerId);
 	
 	/**
 	 * Loads a single event.

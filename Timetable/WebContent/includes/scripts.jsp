@@ -24,3 +24,6 @@
 
 <!-- DateTimePicker Table initialize -->
 <script src="js/datetimepicker.initialize.js"></script>
+
+<!--  The Event functions -->
+<script src="js/event-functions.js"></script>	

@@ -16,29 +16,31 @@ import de.nak.timetable.service.LecturerService;
 
 public class AjaxPostLecturerListAction implements Action {
 
-	private Map<String, String> lecturerMaps = new LinkedHashMap<String, String>();
+	private List<Lecturer> lecturerListAjax;
 	
 	private LecturerService lecturerService;
 
 	@Override
 	public String execute() throws Exception {
 		List<Lecturer> lecturerList = lecturerService.loadAllLecturers();
-		
+		lecturerListAjax = lecturerService.loadAllLecturers();
 		
 		return SUCCESS;
-	}
-
-	public Map<String, String> getLecturerMap() {
-		return lecturerMaps;
-	}
-
-	public void setLecturerMap(Map<String, String> lecturerMap) {
-		this.lecturerMaps = lecturerMap;
 	}
 
 	public void setLecturerService(LecturerService lecturerService) {
 		this.lecturerService = lecturerService;
 	}
+
+	public List<Lecturer> getLecturerListAjax() {
+		return lecturerListAjax;
+	}
+
+	public void setLecturerListAjax(List<Lecturer> lecturerListAjax) {
+		this.lecturerListAjax = lecturerListAjax;
+	}
+	
+	
 	
 	
 }

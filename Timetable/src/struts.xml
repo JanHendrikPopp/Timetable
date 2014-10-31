@@ -17,7 +17,7 @@
 		</action>
 		
 		<!-- Shows the empty form for a new lecturer. -->
-		<action name="AddLecturer">
+		<action name="AddLecturer" class="de.nak.timetable.action.LecturerAction" method="add">
 			<result type="tiles">lecturerForm</result>
 		</action>
 		
@@ -81,7 +81,9 @@
 	
 	<package name="ajax" extends="json-default">
 		<action name="LoadLecturers" class="de.nak.timetable.action.AjaxPostLecturerListAction">
-			<result type="json" />
+			<result type="json"> 
+				<param name="excludeProperties">lecturerListAjax.*\.events,lecturerListAjax.*\.changeoverTime</param>
+			</result>
 		</action>
 	</package>
 	

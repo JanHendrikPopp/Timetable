@@ -1,5 +1,6 @@
 package de.nak.timetable.model;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -25,7 +26,7 @@ public class Lecturer {
 	/** The lecturer's name. */
 	private String name;
 	/** The lecturer's changeover Time. */
-	private Integer changeoverTime;
+	private Integer changeoverTime = 15;
 	/** The set of events */
 	private Set<Event> events;
 	

@@ -2,6 +2,7 @@ package de.nak.timetable.dao;
 
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
 
 import de.nak.timetable.model.Event;
@@ -24,12 +25,6 @@ public class EventDAO {
 	 * @param event The event to persist. The given entity can be transient or detached.
 	 */
 	public void save(Event event) {
-		Lecturer lecturer = lecturerDAO.load(event.getLecturer().getId());
-		
-		//associate the event to the lecturer
-		lecturer.associateEvent(event);
-		
-		//save the event
 		sessionFactory.getCurrentSession().saveOrUpdate(event);
 	}
 	
