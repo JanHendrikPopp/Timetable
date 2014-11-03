@@ -1,5 +1,7 @@
 <%@ include file="include.jsp"%>
 
+<script src="js/moment.min.js"></script>
+
 <!-- jQuery Version 1.11.0 -->
 <script src="theme/sb-admin-v2/js/jquery-1.11.0.js"></script>
 
@@ -16,6 +18,8 @@
 <!-- Custom Theme JavaScript -->
 <script src="theme/sb-admin-v2/js/sb-admin-2.js"></script>
 
+<script src="js/fullcalendar.min.js"></script>	
+
 <!-- Data Table initialize -->
 <script src="js/datatable.initialize.js"></script>
 
@@ -27,3 +31,5 @@
 
 <!--  The Event functions -->
 <script src="js/event-functions.js"></script>	
+
+<script src="js/calendar-view.functions.js"></script>	
