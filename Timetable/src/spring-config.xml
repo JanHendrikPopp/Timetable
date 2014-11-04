@@ -67,6 +67,27 @@
 		<property name="lecturerDAO" ref="lecturerDAO"/>
 	</bean>
 	
+	<!-- Century DAO -->
+	<bean id="centuryDAO" class="de.nak.timetable.dao.CenturyDAO">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<!-- Century Service -->
+	<bean id="centuryService" class="de.nak.timetable.service.CenturyServiceImpl">
+		<property name="centuryDAO" ref="centuryDAO"/>
+	</bean>
+	
+	<!-- Room DAO -->
+	<bean id="roomDAO" class="de.nak.timetable.dao.RoomDAO">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<!-- Room Service -->
+	<bean id="roomService" class="de.nak.timetable.service.RoomServiceImpl">
+		<property name="roomDAO" ref="roomDAO"/>
+	</bean>
+	
+	
 	<bean id="timeCollisionValidator" class="de.nak.timetable.validators.TimeCollisionValidator" />
 	
 	<bean id="lecturerValidator" class="de.nak.timetable.service.LecturerCollisionValidator">

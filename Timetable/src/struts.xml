@@ -47,6 +47,39 @@
 			<result type="redirect">ShowLecturerList.action</result>
 		</action>
 		
+		<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Century XXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->		
+
+		<!-- Action that displays the list of centuries. -->
+		<action name="ShowCenturyList" class="de.nak.timetable.action.ShowCenturyListAction">
+			<result type="tiles">centuryList</result>
+		</action>
+		
+		<!-- Shows the empty form for a new century. -->
+		<action name="AddCentury" class="de.nak.timetable.action.CenturyAction" method="add">
+			<result type="tiles">centuryForm</result>
+		</action>
+		
+		<!-- Saves the new or updated century into the database and shows the century list again. -->
+		<action name="SaveCentury" class="de.nak.timetable.action.CenturyAction" method="save">
+			<result type="redirect">ShowCenturyList.action</result>
+			<result type="tiles" name="input">centuryForm</result>
+		</action>
+		
+		<!-- Action for the cancel button. Is required to avoid stack traces in log. -->
+		<action name="CancelCentury" class="de.nak.timetable.action.CenturyAction" method="cancel">
+			<result type="redirect">ShowCenturyList.action</result>
+		</action>
+
+		<!-- Loads a existing century and shows it in the century form. -->
+		<action name="EditCentury" class="de.nak.timetable.action.CenturyAction" method="load">
+			<result type="tiles">centuryForm</result>
+		</action>
+		
+		<!-- Deletes the selected century and shows the century list again. -->
+		<action name="DeleteCentury" class="de.nak.timetable.action.CenturyAction" method="delete">
+			<result type="redirect">ShowCenturyList.action</result>
+		</action>
+		
 		
 		<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Event XXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
 		
@@ -79,6 +112,39 @@
 		<!-- Deletes the selected event and shows the event list again. -->
 		<action name="DeleteEvent" class="de.nak.timetable.action.EventAction" method="delete">
 			<result type="redirect">ShowEventList.action</result>
+		</action>
+		
+		<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Room XXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->		
+
+		<!-- Action that displays the list of rooms. -->
+		<action name="ShowRoomList" class="de.nak.timetable.action.ShowRoomListAction">
+			<result type="tiles">roomList</result>
+		</action>
+		
+		<!-- Shows the empty form for a new room. -->
+		<action name="AddRoom" class="de.nak.timetable.action.RoomAction" method="add">
+			<result type="tiles">roomForm</result>
+		</action>
+		
+		<!-- Saves the new or updated room into the database and shows the room list again. -->
+		<action name="SaveRoom" class="de.nak.timetable.action.RoomAction" method="save">
+			<result type="redirect">ShowRoomList.action</result>
+			<result type="tiles" name="input">roomForm</result>
+		</action>
+		
+		<!-- Action for the cancel button. Is required to avoid stack traces in log. -->
+		<action name="CancelRoom" class="de.nak.timetable.action.RoomAction" method="cancel">
+			<result type="redirect">ShowRoomList.action</result>
+		</action>
+
+		<!-- Loads a existing room and shows it in the room form. -->
+		<action name="EditRoom" class="de.nak.timetable.action.RoomAction" method="load">
+			<result type="tiles">roomForm</result>
+		</action>
+		
+		<!-- Deletes the selected room and shows the room list again. -->
+		<action name="DeleteRoom" class="de.nak.timetable.action.RoomAction" method="delete">
+			<result type="redirect">ShowRoomList.action</result>
 		</action>
 		
 	</package>

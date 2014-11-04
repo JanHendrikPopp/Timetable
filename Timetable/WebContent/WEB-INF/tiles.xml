@@ -24,6 +24,16 @@
 		<put-attribute name="content" value="/lecturerForm.jsp"/>
 	</definition>
 	
+	<!-- The list screen for all centuries. -->
+	<definition name="centuryList" extends="mainLayout">
+		<put-attribute name="content" value="/centuryList.jsp"/>
+	</definition>
+	
+	<!-- The form for a single century. -->
+	<definition name="centuryForm" extends="mainLayout">
+		<put-attribute name="content" value="/centuryForm.jsp"/>
+	</definition>
+	
 	<!-- The list screen for all events. -->
 	<definition name="eventList" extends="mainLayout">
 		<put-attribute name="content" value="/eventList.jsp"/>
@@ -32,6 +42,16 @@
 	<!-- The form for a single event. -->
 	<definition name="eventForm" extends="mainLayout">
 		<put-attribute name="content" value="/eventForm.jsp"/>
+	</definition>
+	
+	<!-- The list screen for all rooms. -->
+	<definition name="roomList" extends="mainLayout">
+		<put-attribute name="content" value="/roomList.jsp"/>
+	</definition>
+	
+	<!-- The form for a single room. -->
+	<definition name="roomForm" extends="mainLayout">
+		<put-attribute name="content" value="/roomForm.jsp"/>
 	</definition>
 
 </tiles-definitions>
