@@ -26,7 +26,7 @@ public class Century {
 	/** The century's size. */
 	private Integer size;
 	/** The century's changeover Time. */
-	private Integer changeoverTime;
+	private Integer changeoverTime = 15;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

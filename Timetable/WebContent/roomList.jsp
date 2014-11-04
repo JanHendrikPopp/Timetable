@@ -27,7 +27,7 @@
 						<s:iterator value="roomList">
 							<tr>
 								<td><s:property value="building"/><s:property value="number"/></td>
-								<td><s:property value="type"/></td>
+								<td><s:text name="lbl.room.%{type}"></s:text></td>
 								<td><s:property value="capacity"/></td>
 								<td><s:property value="changeoverTime"/></td>
 								<td class="text-center">

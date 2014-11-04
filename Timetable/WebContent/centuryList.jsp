@@ -4,7 +4,6 @@
 	<div class="col-lg-12">
 		<h1 class="page-header"><s:text name="h.century"/></h1>
 	</div>
-<!-- /.col-lg-12 -->
 </div>
 
 <div class="row">
@@ -18,7 +17,8 @@
 					<thead>
 						<tr>
 							<th><s:text name="lbl.name"/></th>
-							<th><s:text name="lbl.size"/></th>
+							<th><s:text name="lbl.century.major"/></th>
+							<th><s:text name="lbl.century.capacity"/></th>
 							<th><s:text name="lbl.changeoverTime"/></th>
 							<th class="nosort"><s:text name="lbl.action"/></th>
 						</tr>
@@ -26,7 +26,8 @@
 					<tbody>
 						<s:iterator value="centuryList">
 							<tr>
-								<td><s:property value="major"/><s:property value="year"/><s:property value="centuryChar"/></td>
+								<td><s:property value="major"/><s:property value="year"/><s:text name="lbl.century.char.%{centuryChar}"></s:text></td>
+								<td><s:text name="lbl.century.major.%{major}"></s:text></td>
 								<td><s:property value="size"/></td>
 								<td><s:property value="changeoverTime"/></td>
 								<td class="text-center">

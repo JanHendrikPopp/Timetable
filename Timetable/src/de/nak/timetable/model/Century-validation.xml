@@ -6,27 +6,32 @@
 <validators>
 	<field name="major">
 		<field-validator type="required">
-			<message key="msg.validator.required"/>
+			<message key="msg.validator.required.major"/>
 		</field-validator>
 	</field>
 	<field name="centuryChar">
 		<field-validator type="required">
-			<message key="msg.validator.required"/>
+			<message key="msg.validator.required.centuryChar"/>
 		</field-validator>
 	</field>
 	<field name="year">
 		<field-validator type="required">
-			<message key="msg.validator.required"/>
+			<message key="msg.validator.required.centuryYear"/>
+		</field-validator>
+		<field-validator type="int">
+			<param name="min">10</param>
+			<param name="max">99</param>
+			<message key="msg.validator.intRange.centuryYear"/>
 		</field-validator>
 	</field>
 	<field name="size">
 		<field-validator type="required">
-			<message key="msg.validator.required"/>
+			<message key="msg.validator.required.centurySize"/>
 		</field-validator>
 		<field-validator type="int">
 			<param name="min">1</param>
 			<param name="max">200</param>
-			<message key="msg.validator.intRange"/>
+			<message key="msg.validator.intRange.centurySize"/>
 		</field-validator>
 	</field>
 	<field name="changeoverTime">
