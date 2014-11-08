@@ -1,5 +1,8 @@
 package de.nak.timetable.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.*;
 
 /**
@@ -37,6 +40,8 @@ public class Room {
 	private RoomType type;
 	/** The room's changeover Time. */
 	private Integer changeoverTime = 15;
+	
+	private Set<Event> events;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -93,6 +98,18 @@ public class Room {
 		this.changeoverTime = changeoverTime;
 	}
 	
+	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @JoinTable(name="ROOM_EVENT",
+                joinColumns={@JoinColumn(name="ROOM_ID")},
+                inverseJoinColumns={@JoinColumn(name="EVENT_ID")})
+	public Set<Event> getEvents() {
+		return events;
+	}
+
+	public void setEvents(Set<Event> events) {
+		this.events = events;
+	}
+
 	public boolean changeOverTimeIsValid() {
 		return(this.changeoverTime >= this.type.getMinChangeOverTime());
 	}
@@ -126,6 +143,41 @@ public class Room {
 		} else if(!number.equals(other.number))
 			return false;
 		return true;
+	}
+	
+	/**
+	 * Associates the given event to the room.
+	 * 
+	 * @param event
+	 *            The event to associate.
+	 */
+	public void associateEvent(Event event) {
+		if(event == null) {
+			throw new IllegalArgumentException();
+		}
+		if(event.getRooms() == null) {
+			event.setRooms(new HashSet<Room>());
+		}
+		if(event.getRooms().contains(this)) {
+			event.getRooms().add(this);
+		}
+		if(!events.contains(event)) {
+			events.add(event);
+		}
+	}
+	
+	
+	/**
+	 * Detaches event from this room.
+	 */
+	public void detachEvent(Event event) {
+		if(event == null) {
+			throw new IllegalArgumentException();
+		}
+		if(event.getRooms().contains(this)) {
+			event.getRooms().remove(this);
+		}
+		events.remove(event);
 	}
 	
 	

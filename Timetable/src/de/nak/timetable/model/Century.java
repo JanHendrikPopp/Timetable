@@ -1,5 +1,8 @@
 package de.nak.timetable.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.*;
 
 /**
@@ -27,6 +30,8 @@ public class Century {
 	private Integer size;
 	/** The century's changeover Time. */
 	private Integer changeoverTime = 15;
+	
+	private Set<Event> events;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -83,6 +88,18 @@ public class Century {
 		this.changeoverTime = changeoverTime;
 	}
 	
+	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @JoinTable(name="CENTURY_EVENT",
+                joinColumns={@JoinColumn(name="CENTURY_ID")},
+                inverseJoinColumns={@JoinColumn(name="EVENT_ID")})
+	public Set<Event> getEvents() {
+		return events;
+	}
+
+	public void setEvents(Set<Event> events) {
+		this.events = events;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -118,6 +135,31 @@ public class Century {
 		} else if(!year.equals(other.year))
 			return false;
 		return true;
+	}
+	
+	public void associateEvent(Event event) {
+		if(event == null) {
+			throw new IllegalArgumentException();
+		}
+		if(event.getCenturies() == null) {
+			event.setCenturies(new HashSet<Century>());
+		}
+		if(event.getCenturies().contains(this)) {
+			event.getCenturies().add(this);
+		}
+		if(!events.contains(event)) {
+			events.add(event);
+		}
+	}
+	
+	public void detachEvent(Event event) {
+		if(event == null) {
+			throw new IllegalArgumentException();
+		}
+		if(event.getCenturies().contains(this)) {
+			event.getCenturies().remove(this);
+		}
+		events.remove(event);
 	}
 
 }

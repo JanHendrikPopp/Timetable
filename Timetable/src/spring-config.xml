@@ -56,17 +56,7 @@
 		<property name="lecturerDAO" ref="lecturerDAO"/>
 	</bean>
 	
-	<!-- Event DAO -->
-	<bean id="eventDAO" class="de.nak.timetable.dao.EventDAO">
-		<property name="sessionFactory" ref="sessionFactory"/>
-		<property name="lecturerDAO" ref="lecturerDAO"/>
-	</bean>
-	
-	<!-- Event Service -->
-	<bean id="eventService" class="de.nak.timetable.service.EventServiceImpl">
-		<property name="eventDAO" ref="eventDAO"/>
-		<property name="lecturerDAO" ref="lecturerDAO"/>
-	</bean>
+
 	
 	<!-- Century DAO -->
 	<bean id="centuryDAO" class="de.nak.timetable.dao.CenturyDAO">
@@ -88,6 +78,20 @@
 		<property name="roomDAO" ref="roomDAO"/>
 	</bean>
 	
+		<!-- Event DAO -->
+	<bean id="eventDAO" class="de.nak.timetable.dao.EventDAO">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="lecturerDAO" ref="lecturerDAO"/>
+	</bean>
+	
+	<!-- Event Service -->
+	<bean id="eventService" class="de.nak.timetable.service.EventServiceImpl">
+		<property name="eventDAO" ref="eventDAO"/>
+		<property name="lecturerDAO" ref="lecturerDAO"/>
+		<property name="roomDAO" ref="roomDAO"/>
+		<property name="centuryDAO" ref="centuryDAO"/>
+	</bean>
+	
 	
 	<bean id="timeCollisionValidator" class="de.nak.timetable.validators.TimeCollisionValidator" />
 	
@@ -95,10 +99,22 @@
 		<property name="timeCollisionValidator" ref="timeCollisionValidator"/>
 	</bean>
 	
+	<bean id="roomValidator" class="de.nak.timetable.validators.RoomCollisionValidator">
+		<property name="timeCollisionValidator" ref="timeCollisionValidator"/>
+	</bean>
+	
+	<bean id="centuryValidator" class="de.nak.timetable.validators.CenturyCollisionValidator">
+		<property name="timeCollisionValidator" ref="timeCollisionValidator"/>
+	</bean>
+	
 	<!-- Collision Service -->
 	<bean id="collisionService" class="de.nak.timetable.service.CollisionServiceImpl">
 		<property name="lecturerDAO" ref="lecturerDAO"/>
+		<property name="roomDAO" ref="roomDAO"/>
+		<property name="centuryDAO" ref="centuryDAO"/>
 		<property name="lecturerValidator" ref="lecturerValidator"/>
+		<property name="roomValidator" ref="roomValidator"/>
+		<property name="centuryValidator" ref="centuryValidator"/>
 	</bean>
 
 </beans>

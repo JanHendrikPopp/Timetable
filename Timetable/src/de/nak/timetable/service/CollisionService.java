@@ -17,5 +17,5 @@ public interface CollisionService {
 	 *
 	 * @return a list which is empty if no collision was found.
 	 */
-	List<String> getAllCollisions(Event event, Long lecturerId);
+	List<String> getAllCollisions(Event event, Long lecturerId, List<Long> roomIds, List<Long> centuryIds);
 }

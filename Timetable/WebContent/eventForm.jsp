@@ -17,6 +17,7 @@
 				<div class="panel-body">
 						<s:hidden name="event.id"/>
 						<s:textfield name="event.name" key="lbl.eventTitle" size="40" maxlength="100" requiredLabel="true"/>
+						<s:select key="lbl.eventType" headerKey="-1" list="#{'SEM':'Seminar', 'LECT':'Vorlesung', 'EXAM':'Klausur'}" name="event.type" />
 						<s:textfield cssClass="form_datetime" name="event.eventStart" key="lbl.eventStart" size="10" maxlength="50" requiredLabel="true" value='%{getText("{0,date,dd.MM.yyyy HH:mm}",{event.eventStart})}'/>
 						<s:textfield name="event.duration" key="lbl.eventDuaration" size="10" maxlength="50" requiredLabel="true"/>
 						<s:textfield name="event.changeoverTime" key="lbl.changeoverTime" size="10" maxlength="20" requiredLabel="true"/>
@@ -37,13 +38,44 @@
 				</div>
 				<div class="panel-body">
 					<s:hidden name="lecturerId" id="lecturerId"/>
-					<s:textfield name="lecturerName" key="lbl.event.lecturer" disabled="true"/>
+					<s:textfield name="lecturerName" key="lbl.event.lecturer" disabled="false"/>
 					<a href="javascript:openLecturerModal()" title="Add lecturer">
 	                	<i class="fa fa-plus-circle fa-fw"></i>Dozent auswählen
 	                </a>
 	                <a href="javascript:clearLecturer()" title="Add lecturer">
 	                	<i class="fa fa-trash-o fa-fw"></i>Dozenten löschen
-	                </a>	
+	                </a>
+	                <div id="rooms">
+		                <s:iterator value="event.rooms" var="room">
+		                	<s:hidden name="roomIds" value="%{#room.id}"/>
+		                </s:iterator>
+	                </div>
+	                <s:textfield name="roomNames" key="lbl.event.rooms" disabled="false"/>
+					<a href="javascript:openAllRoomsModal()" title="Add room">
+	                	<i class="fa fa-plus-circle fa-fw"></i>Raum hinzufügen
+	                </a>
+	                <a href="javascript:openFreeRoomsModal()" title="Add room">
+	                	<i class="fa fa-plus-circle fa-fw"></i>Freie Räume suchen
+	                </a>
+	                <a href="javascript:clearRooms()" title="Add lecturer">
+	                	<i class="fa fa-trash-o fa-fw"></i>Räume löschen
+	                </a>
+	                
+	                <div id="centuries">
+		                <s:iterator value="event.centuries" var="century">
+		                	<s:hidden name="centuryIds" value="%{#century.id}"/>
+		                </s:iterator>
+	                </div>
+	                <s:textfield name="centuryNames" key="lbl.event.rooms" disabled="false"/>
+					<a href="javascript:openCenturyModal()" title="Add Century">
+	                	<i class="fa fa-plus-circle fa-fw"></i>Zenturie hinzufügen
+	                </a>
+	                <a href="javascript:openCohortModal()" title="Add Cohor">
+	                	<i class="fa fa-plus-circle fa-fw"></i>Kohorte hinzufügen
+	                </a>
+	                <a href="javascript:clearCenturies()" title="Add lecturer">
+	                	<i class="fa fa-trash-o fa-fw"></i>Zenturien löschen
+	                </a>
 				</div>
 			</div>
 		</div>
@@ -59,3 +91,5 @@
 </s:form>
 
 <c:import url="../includes/addLecturerModal.jsp"/>
+<c:import url="../includes/addRoomModal.jsp"/>
+<c:import url="../includes/addCenturyModal.jsp"/>

@@ -2,14 +2,18 @@
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,10 +28,26 @@ import org.hibernate.annotations.Type;
  */
 @Entity
 public class Event {
+	
+	public enum EventType {
+		LECT(0), SEM(0), EXAM(30);
+		
+		private Integer minChangeOverTime;
+		
+		private EventType(Integer time) {
+			this.minChangeOverTime = time;
+		}
+		
+		public Integer getMinChangeOverTime() {
+			return minChangeOverTime;
+		}
+	}
+	
 	/** The identifier. */
 	private Long id;
 	/** The event's name. */
 	private String name;
+	private EventType type;
 	/** The event's start. */
 	private Date eventStart;
 	/** The event's duration. */
@@ -38,6 +58,10 @@ public class Event {
 	private Integer weeklyRecurrence;
 	/** The lecturer */
 	private Lecturer lecturer;
+	
+	private Set<Room> rooms;
+	
+	private Set<Century> centuries;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -58,6 +82,15 @@ public class Event {
 		this.name = name;
 	}
 	
+	@Enumerated(EnumType.STRING)
+	public EventType getType() {
+		return type;
+	}
+
+	public void setType(EventType type) {
+		this.type = type;
+	}
+
 	@Type(type="timestamp")
 	@Column(name = "event_start", nullable = false)
 	public Date getEventStart() {
@@ -105,6 +138,29 @@ public class Event {
 		this.lecturer = lecturer;
 	}
 	
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy="events")
+	public Set<Room> getRooms() {
+		return rooms;
+	}
+
+	public void setRooms(Set<Room> rooms) {
+		this.rooms = rooms;
+	}
+
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy="events")
+	public Set<Century> getCenturies() {
+		return centuries;
+	}
+
+	public void setCenturies(Set<Century> centuries) {
+		this.centuries = centuries;
+	}
+
+	
+	public boolean changeOverTimeIsValid() {
+		return(this.changeoverTime >= this.type.getMinChangeOverTime());
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

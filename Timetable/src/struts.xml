@@ -156,9 +156,29 @@
 				<param name="excludeProperties">lecturerListAjax.*\.events,lecturerListAjax.*\.changeoverTime</param>
 			</result>
 		</action>
+		<action name="LoadRooms" class="de.nak.timetable.action.AjaxPostRoomListAction">
+			<result type="json"> 
+				<param name="excludeProperties">roomList.*\.events,roomList.*\.changeoverTime</param>
+			</result>
+		</action>
+		<action name="LoadCenturies" class="de.nak.timetable.action.AjaxPostCenturyListAction">
+			<result type="json"> 
+				<param name="excludeProperties">centuryList.*\.events,centuryList.*\.changeoverTime</param>
+			</result>
+		</action>
 		<action name="LoadLecturerEvents" class="de.nak.timetable.action.AjaxGetLecturerEventsAction">
 			<result type="json">
 				<param name="excludeProperties">lecturerEvents.*\.lecturer.*\.events,lecturerEvents.*\.changeoverTime,lecturerId</param>
+			</result>
+		</action>
+		<action name="LoadRoomEvents" class="de.nak.timetable.action.AjaxGetRoomsAction">
+			<result type="json">
+				<param name="excludeProperties">events.*\.lecturer.*\.events,lecturerEvents.*\.changeoverTime,lecturerId</param>
+			</result>
+		</action>
+		<action name="LoadCenturyEvents" class="de.nak.timetable.action.AjaxGetCenturyEventsAction">
+			<result type="json">
+				<param name="excludeProperties">events.*\.lecturer.*\.events,lecturerEvents.*\.changeoverTime,lecturerId</param>
 			</result>
 		</action>
 		

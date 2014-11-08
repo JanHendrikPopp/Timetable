@@ -1,11 +1,15 @@
 package de.nak.timetable.action;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import de.nak.timetable.model.Century;
 import de.nak.timetable.model.Event;
 import de.nak.timetable.model.Lecturer;
+import de.nak.timetable.model.Room;
 import de.nak.timetable.service.CollisionService;
 import de.nak.timetable.service.EventService;
 
@@ -32,8 +36,16 @@ public class EventAction extends ActionSupport{
 	/** */
 	private Long lecturerId;
 	
+	private List<Long> roomIds;
+	
+	private List<Long> centuryIds;
+	
 	/** */
-	private String lecturerName;
+	private String lecturerName = "";
+	
+	private String roomNames = "";
+	
+	private String centuryNames ="";
 	
 	/**
 	 * Saves the event to the database.
@@ -43,10 +55,11 @@ public class EventAction extends ActionSupport{
 	public String save() {
 		if(event.getId() != null) {
 			Event dbEvent = eventService.loadEvent(event.getId());
+			event.setRooms(dbEvent.getRooms());
 			event.setLecturer(dbEvent.getLecturer());
 		}
 		
-		eventService.saveEvent(event, lecturerId);
+		eventService.saveEvent(event, lecturerId, roomIds, centuryIds);
 		return SUCCESS;
 	}
 	
@@ -70,11 +83,7 @@ public class EventAction extends ActionSupport{
 	 */
 	public String load() {
 		event = eventService.loadEvent(eventId);
-		if(event.getLecturer() != null) {
-			Lecturer lecturer = event.getLecturer();
-			lecturerId = lecturer.getId();
-			lecturerName = lecturer.getTitle() + lecturer.getName();
-		}
+		setTextDependences(event);
 		return SUCCESS;
 	}
 	
@@ -92,10 +101,34 @@ public class EventAction extends ActionSupport{
 	
 	@Override
 	public void validate() {
-		if(!proceed && event != null) {
-			List<String> errors = collisionService.getAllCollisions(event, lecturerId);
-			for (String error : errors) {
-				addActionError(error);
+		if(event != null) {
+			if(event != null && !eventService.changeOverTimeIsValid(event)) {
+				addActionError(getText("msg.validator.incorrect.event.changeOverTime"));
+			} else if(!proceed) {
+				List<String> errors = collisionService.getAllCollisions(event, lecturerId, roomIds, centuryIds);
+				for (String error : errors) {
+					addActionError(error);
+				}
+			}
+		}
+	}
+	
+	private void setTextDependences(Event event) {
+		if(event.getLecturer() != null) {
+			Lecturer lecturer = event.getLecturer();
+			lecturerId = lecturer.getId();
+			lecturerName = lecturer.getTitle() + " " + lecturer.getName();
+		}
+		if(event.getRooms() != null) {
+			for(Room room : event.getRooms()) {
+				String roomName = room.getBuilding() + room.getNumber();
+				roomNames = roomNames + " " + roomName;
+			}
+		}
+		if(event.getCenturies() != null) {
+			for(Century century : event.getCenturies()) {
+				String centuryName = century.getMajor() + century.getYear().toString() + century.getCenturyChar();
+				centuryNames = centuryNames + " " + centuryName;
 			}
 		}
 	}
@@ -138,6 +171,38 @@ public class EventAction extends ActionSupport{
 
 	public void setLecturerId(Long lecturerId) {
 		this.lecturerId = lecturerId;
+	}
+
+	public List<Long> getRoomIds() {
+		return roomIds;
+	}
+
+	public void setRoomIds(List<Long> roomIds) {
+		this.roomIds = roomIds;
+	}
+
+	public List<Long> getCenturyIds() {
+		return centuryIds;
+	}
+
+	public void setCenturyIds(List<Long> centuryIds) {
+		this.centuryIds = centuryIds;
+	}
+
+	public String getRoomNames() {
+		return roomNames;
+	}
+
+	public void setRoomNames(String roomNames) {
+		this.roomNames = roomNames;
+	}
+	
+	public String getCenturyNames() {
+		return centuryNames;
+	}
+
+	public void setCenturyNames(String centuryNames) {
+		this.centuryNames = centuryNames;
 	}
 
 	public void setEventService(EventService eventService) {

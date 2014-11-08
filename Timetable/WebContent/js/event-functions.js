@@ -1,8 +1,17 @@
 var lecturerModal = $("#lecturerModal");
+var roomModal = $("#roomModal");
+var centuryModal = $("#centuryModal");
 var lecturerTable = $("#lecturerTable");
+var roomTable = $("#roomTable");
+var centuryTable = $("#centuryTable");
 var lecturerId = $("#lecturerId");
 var lecturerNameEdit = $("#EditEvent_lecturerName");
 var lecturerNameAdd = $("#AddEvent_lecturerName");
+var roomsDiv = $("#rooms");
+var centuriesDiv = $("#centuries");
+var roomNames= $("#AddEvent_roomNames");
+var centuryNames= $("#AddEvent_centuryNames");
+
 
 $(document).ready(function() {
 	
@@ -49,6 +58,43 @@ function openLecturerModal() {
 	initializeTable();
 }
 
+function openAllRoomsModal() {
+	roomModal.modal('show');
+	initializeRoomTable();
+}
+
+function openCenturyModal() {
+	centuryModal.modal('show');
+	initializeCenturyTable();
+}
+
+function initializeRoomTable() {
+	var table = roomTable.DataTable();
+    table.clear();
+    table.draw();
+    
+    $.getJSON('LoadRooms', function (obj) {
+        jQuery.each(obj, function (i,val) {
+            jQuery.each(val, function (e,value) {
+                addRoomRow(value);
+            });
+        });
+    });
+}
+
+function initializeCenturyTable() {
+	var table = centuryTable.DataTable();
+    table.clear();
+    table.draw();
+    
+    $.getJSON('LoadCenturies', function (obj) {
+        jQuery.each(obj, function (i,val) {
+            jQuery.each(val, function (e,value) {
+                addCenturyRow(value);
+            });
+        });
+    });
+}
 
 function initializeTable() {
 	var table = lecturerTable.DataTable();
@@ -83,11 +129,71 @@ function addRow(value) {
     ]).draw();
 }
 
+function addRoomRow(value) {
+    var t = roomTable.DataTable();
+    var number = value.building + value.number;
+    var type = value.type;
+    var capacity = value.capacity;
+    var link = '<a href="javascript:addRoom(';
+    var link = link.concat(value.id);
+    var link = link.concat(", '");
+    var link = link.concat(number);
+    var link = link.concat("'");
+    var link = link.concat(')" title="Add lecturer">Teeest</a>');
+    t.row.add( [
+        number,
+        type,
+        capacity,
+        link
+    ]).draw();
+}
+
+function addCenturyRow(value) {
+    var t = centuryTable.DataTable();
+    var name = value.major + value.year + value.centuryChar;
+    var major = value.major;
+    var size = value.size;
+    var link = '<a href="javascript:addCentury(';
+    var link = link.concat(value.id);
+    var link = link.concat(", '");
+    var link = link.concat(name);
+    var link = link.concat("'");
+    var link = link.concat(')" title="Add Century">Teeest</a>');
+    t.row.add( [
+        name,
+        major,
+        size,
+        link
+    ]).draw();
+}
+
 function setLecturer(id, name) {
 	lecturerId.val(id);
 	lecturerNameEdit.val(name);
 	lecturerNameAdd.val(name);
 	lecturerModal.modal('hide');
+}
+
+function addRoom(id, name) {
+	var input = '<input type="hidden" name="roomIds" value="' + id + '"/> ';
+	var names = roomNames.val() + ' ' + name;
+	$( "#rooms" ).append(input);
+	roomNames.val(names);
+}
+
+function addCentury(id, name) {
+	var input = '<input type="hidden" name="centuryIds" value="' + id + '"/> ';
+	var names = centuryNames.val() + ' ' + name;
+	$( "#centuries" ).append(input);
+	centuryNames.val(names);
+}
+function clearRooms() {
+	roomsDiv.empty();
+	roomNames.val("");
+}
+function clearCenturies() {
+	centuriesDiv.empty();
+	centuryNames.val("");
 }
 function clearLecturer() {
 	lecturerId.val("");

@@ -7,13 +7,13 @@ import de.nak.timetable.model.Event;
 public class TimeCollisionValidator {
 
 	
-	private Calendar getEventStart(Event event) {
+	public Calendar getEventStart(Event event) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(event.getEventStart());
 		return cal;
 	}
 	
-	private Calendar getEventEnd(Event event) {
+	public Calendar getEventEnd(Event event) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(event.getEventStart());
 		cal.add(Calendar.MINUTE, event.getDuration());
@@ -25,13 +25,28 @@ public class TimeCollisionValidator {
 		Calendar eventStart = getEventStart(event);
 		Calendar eventEnd = getEventEnd(event);
 		
-		if(eventStart.equals(start) || eventEnd.equals(end)) {
+		Integer rec = event.getWeeklyRecurrence();
+		
+		if(checkCollision(eventStart, eventEnd, start, end))
+			return true;
+		for (int i = 1; i <= rec; i++) {
+			eventStart.add(Calendar.DATE, 7);
+			eventEnd.add(Calendar.DATE, 7);
+			if(checkCollision(eventStart, eventEnd, start, end))
+				return true;
+		}
+		
+		return false;
+	}
+	
+	private Boolean checkCollision(Calendar eStart, Calendar eEnd, Calendar start, Calendar end) {
+		if(eStart.equals(start) || eEnd.equals(end)) {
 			return true;
 		}	
-		if(eventStart.after(start) && eventStart.before(end)) {
+		if(eStart.after(start) && eStart.before(end)) {
 			return true;
 		}
-		if(eventEnd.after(start) && eventEnd.before(end)) {
+		if(eEnd.after(start) && eEnd.before(end)) {
 			return true;
 		}
 		return false;

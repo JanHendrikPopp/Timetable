@@ -16,7 +16,7 @@ public interface EventService {
 	 *
 	 * @param event The event.
 	 */
-	void saveEvent(Event event, Long lecturerId);
+	void saveEvent(Event event, Long lecturerId, List<Long> roomIds, List<Long> centuryIds);
 	
 	/**
 	 * Loads a single event.
@@ -39,4 +39,6 @@ public interface EventService {
 	 * @return a list which is empty if no event was found.
 	 */
 	List<Event> loadAllEvents();
+	
+	Boolean changeOverTimeIsValid(Event event);
 }
