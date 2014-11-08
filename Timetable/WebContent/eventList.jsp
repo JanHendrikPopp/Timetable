@@ -34,9 +34,17 @@
 								<td><s:property value="eventStart"/></td>
 								<td><s:property value="duration"/></td>
 								<td><s:property value="changeoverTime"/></td>
-								<td>Raum</td>
+								<td>
+									<s:iterator value="rooms">
+										<s:property value="building"/><s:property value="number"/>
+									</s:iterator>
+								</td>
 								<td><s:property value="lecturer.title"/> <s:property value="lecturer.name"/></td>
-								<td>Zenturie</td>
+								<td>
+									<s:iterator value="centuries">
+										<s:property value="major"/><s:property value="year"/><s:text name="lbl.century.char.%{centuryChar}"></s:text>
+									</s:iterator>
+								</td>
 								<td class="text-center">
 									<a href="
 										<s:url action="EditEvent">

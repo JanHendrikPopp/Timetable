@@ -21,6 +21,16 @@
 			<result type="tiles">lecturerEvents</result>
 		</action>
 		
+		<!-- Lecturer Event View. -->
+		<action name="ShowRoomEvents" class="de.nak.timetable.action.ShowRoomListAction">
+			<result type="tiles">roomEvents</result>
+		</action>
+		
+		<!-- Lecturer Event View. -->
+		<action name="ShowCenturyEvents" class="de.nak.timetable.action.ShowCenturyListAction">
+			<result type="tiles">centuryEvents</result>
+		</action>
+		
 		<!-- Shows the empty form for a new lecturer. -->
 		<action name="AddLecturer" class="de.nak.timetable.action.LecturerAction" method="add">
 			<result type="tiles">lecturerForm</result>

@@ -34,13 +34,13 @@
                     <a href="#"><i class="fa fa-database fa-fw"></i> Wochenansicht<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="#"><i class="fa fa-home fa-fw"></i> Rooms</a>
+                            <a href="ShowRoomEvents.action"><i class="fa fa-home fa-fw"></i> Rooms</a>
                         </li>
                        <li>
                             <a href="ShowLecturerEvents.action"><i class="fa fa-user fa-fw"></i> Lecturers</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-users fa-fw"></i> Classes</a>
+                            <a href="ShowCenturyEvents.action"><i class="fa fa-users fa-fw"></i> Classes</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->

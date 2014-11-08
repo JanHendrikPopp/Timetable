@@ -5,12 +5,13 @@ var lecturerTable = $("#lecturerTable");
 var roomTable = $("#roomTable");
 var centuryTable = $("#centuryTable");
 var lecturerId = $("#lecturerId");
-var lecturerNameEdit = $("#EditEvent_lecturerName");
-var lecturerNameAdd = $("#AddEvent_lecturerName");
+
+var lecturerName = $("#EditEvent_lecturerName, #AddEvent_lecturerName, #SaveEvent_lecturerName");
+var roomNames = $("#EditEvent_roomNames, #AddEvent_roomNames, #SaveEvent_roomNames");
+var centuryNames= $("#EditEvent_centuryNames, #AddEvent_centuryNames, #SaveEvent_centuryNames");
+
 var roomsDiv = $("#rooms");
 var centuriesDiv = $("#centuries");
-var roomNames= $("#AddEvent_roomNames");
-var centuryNames= $("#AddEvent_centuryNames");
 
 
 $(document).ready(function() {
@@ -118,7 +119,7 @@ function addRow(value) {
     var link = '<a href="javascript:setLecturer(';
     var link = link.concat(value.id);
     var link = link.concat(", '");
-    var link = link.concat(value.name);
+    var link = link.concat(title + ' ' + value.name);
     var link = link.concat("'");
     var link = link.concat(')" title="Add lecturer">Teeest</a>');
     t.row.add( [
@@ -169,8 +170,7 @@ function addCenturyRow(value) {
 
 function setLecturer(id, name) {
 	lecturerId.val(id);
-	lecturerNameEdit.val(name);
-	lecturerNameAdd.val(name);
+	lecturerName.val(name);
 	lecturerModal.modal('hide');
 }
 
@@ -187,6 +187,8 @@ function addCentury(id, name) {
 	$( "#centuries" ).append(input);
 	centuryNames.val(names);
 }
+
+
 function clearRooms() {
 	roomsDiv.empty();
 	roomNames.val("");
@@ -197,6 +199,5 @@ function clearCenturies() {
 }
 function clearLecturer() {
 	lecturerId.val("");
-	lecturerNameEdit.val("");
-	lecturerNameAdd.val("");
+	lecturerName.val("");
 }

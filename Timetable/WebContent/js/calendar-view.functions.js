@@ -1,4 +1,6 @@
 var eventsLecturerModal = $("#eventsLecturerModal");
+var eventsRoomModal = $("#eventsRoomModal");
+var eventsCenturyModal = $("#eventsCenturyModal");
 
 $(document).ready(function() {
 	updateCalendar();
@@ -9,9 +11,17 @@ function openEventsLecturerModal() {
 	eventsLecturerModal.modal('show');
 }
 
+function openEventsRoomModal() {
+	eventsRoomModal.modal('show');
+}
+
+function openEventsCenturyModal() {
+	eventsCenturyModal.modal('show');
+}
+
 
 function loadEvents(lecturerId) {
-	
+	$('#calendar').fullCalendar( 'removeEvents' );
 	$.getJSON('LoadLecturerEvents?lecturerId=' + lecturerId, function (obj) {
 	       jQuery.each(obj, function (i,val) {
 	           jQuery.each(val, function (e,value) {
@@ -19,14 +29,44 @@ function loadEvents(lecturerId) {
 	           });
 	       });
 	   });
+	eventsLecturerModal.modal('hide');
+}
+function loadRoomEvents(roomId) {
+	$('#calendar').fullCalendar( 'removeEvents' );
+	$.getJSON('LoadRoomEvents?roomId=' + roomId, function (obj) {
+	       jQuery.each(obj, function (i,val) {
+	           jQuery.each(val, function (e,value) {
+	              addEvent(value);
+	           });
+	       });
+	   });
+	eventsRoomModal.modal('hide');
+}
+function loadCenturyEvents(centuryId) {
+	$('#calendar').fullCalendar( 'removeEvents' );
+	$.getJSON('LoadCenturyEvents?centuryId=' + centuryId, function (obj) {
+	       jQuery.each(obj, function (i,val) {
+	           jQuery.each(val, function (e,value) {
+	              addEvent(value);
+	           });
+	       });
+	   });
+	eventsCenturyModal.modal('hide');
 }
 
 function addEvent(event) {
 	var events = [];
-	events.push({
-		title: event.name,
-		start: event.eventStart,
-		end: addMinutes(event.eventStart, event.duration)});
+	
+	var rec = event.weeklyRecurrence;
+	var start = event.eventStart;
+	while (rec >= 0) {
+		events.push({
+			title: event.name,
+			start: start,
+			end: addMinutes(start, event.duration)});
+	start = addMinutes(start, 10080);
+	rec--;
+	}
 	
 	$('#calendar').fullCalendar( 'addEventSource', events );
 }

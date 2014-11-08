@@ -19,6 +19,14 @@
 		<put-attribute name="content" value="/lecturerEvents.jsp"/>
 	</definition>
 	
+	<definition name="roomEvents" extends="mainLayout">
+		<put-attribute name="content" value="/roomEvents.jsp"/>
+	</definition>
+	
+	<definition name="centuryEvents" extends="mainLayout">
+		<put-attribute name="content" value="/centuryEvents.jsp"/>
+	</definition>
+	
 	<!-- The form for a single lecturer. -->
 	<definition name="lecturerForm" extends="mainLayout">
 		<put-attribute name="content" value="/lecturerForm.jsp"/>
