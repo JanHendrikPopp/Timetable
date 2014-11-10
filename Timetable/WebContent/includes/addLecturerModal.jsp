@@ -5,7 +5,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Add Lecturer</h4>
+                <h4 class="modal-title" id="myModalLabel"><s:text name="modal.addLecturer"/></h4>
             </div>
             <div class="modal-body">
                 <table class="table table-striped table-bordered table-hover addLecturer-dataTable" id="lecturerTable">
@@ -21,7 +21,7 @@
 				</table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal"><s:text name="modal.ok"/></button>
             </div>
         </div>
     </div>

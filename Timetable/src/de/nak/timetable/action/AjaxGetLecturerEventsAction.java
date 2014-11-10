@@ -9,18 +9,23 @@ import de.nak.timetable.model.Event;
 import de.nak.timetable.model.Lecturer;
 import de.nak.timetable.service.LecturerService;
 
-public class AjaxGetLecturerEventsAction implements Action{
-
+/**
+ * Action for Lecturer Calender Events View.
+ * 
+ * @author Hendrik Heers
+ */
+public class AjaxGetLecturerEventsAction implements Action {
+	/** The lecturer ID */
 	private Long lecturerId;
-	
+	/** The Set of Events */
 	private Set<Event> lecturerEvents;
-	
+	/** The Lecturer Service */
 	private LecturerService lecturerService;
 
 	@Override
 	public String execute() throws Exception {
 		Lecturer lecturer = lecturerService.loadLecturer(lecturerId);
-		if(lecturer != null) {
+		if (lecturer != null) {
 			lecturerEvents = lecturer.getEvents();
 		}
 		return SUCCESS;
@@ -45,8 +50,5 @@ public class AjaxGetLecturerEventsAction implements Action{
 	public void setLecturerService(LecturerService lecturerService) {
 		this.lecturerService = lecturerService;
 	}
-	
-	
-	
 
 }

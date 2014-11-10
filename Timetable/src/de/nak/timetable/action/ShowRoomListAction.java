@@ -9,13 +9,12 @@ import de.nak.timetable.service.RoomService;
 
 /**
  * Action that shows a list of rooms.
- *
+ * 
  * @author Paul Becker
  */
-public class ShowRoomListAction implements Action{
+public class ShowRoomListAction implements Action {
 	/** The list of rooms. */
 	private List<Room> roomList;
-	
 	/** The room service. */
 	private RoomService roomService;
 

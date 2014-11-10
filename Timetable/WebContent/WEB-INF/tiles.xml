@@ -61,5 +61,10 @@
 	<definition name="roomForm" extends="mainLayout">
 		<put-attribute name="content" value="/roomForm.jsp"/>
 	</definition>
+	
+	
+	<definition name="error404" extends="mainLayout">
+		<put-attribute name="content" value="/error404.jsp"/>
+	</definition>
 
 </tiles-definitions>

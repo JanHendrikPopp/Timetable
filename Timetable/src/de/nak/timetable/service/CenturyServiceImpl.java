@@ -7,13 +7,13 @@ import de.nak.timetable.model.Century;
 
 /**
  * The century service implementation class.
- *
+ * 
  * @author Paul Becker
  */
-public class CenturyServiceImpl implements CenturyService{
+public class CenturyServiceImpl implements CenturyService {
 	/** The century DAO. */
-	private CenturyDAO centuryDAO;		
-	
+	private CenturyDAO centuryDAO;
+
 	@Override
 	public void saveCentury(Century century) {
 		centuryDAO.save(century);
@@ -38,8 +38,9 @@ public class CenturyServiceImpl implements CenturyService{
 	public Boolean centuryExists(Century century) {
 		List<Century> centuries = centuryDAO.loadAll();
 		for (Century ctry : centuries) {
-			if(century.equals(ctry)) {
-				if(century.getId() != null && century.getId().equals(ctry.getId()))
+			if (century.equals(ctry)) {
+				if (century.getId() != null
+						&& century.getId().equals(ctry.getId()))
 					return false;
 				else
 					return true;
@@ -47,10 +48,9 @@ public class CenturyServiceImpl implements CenturyService{
 		}
 		return false;
 	}
-	
+
 	public void setCenturyDAO(CenturyDAO centuryDAO) {
 		this.centuryDAO = centuryDAO;
 	}
-	
 
 }

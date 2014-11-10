@@ -9,13 +9,12 @@ import de.nak.timetable.service.LecturerService;
 
 /**
  * Action that shows a list of lecturers.
- *
- * @author Jan-Hendrik Popp
+ * 
+ * @author Paul Becker
  */
-public class ShowLecturerListAction implements Action{
+public class ShowLecturerListAction implements Action {
 	/** The list of lecturers. */
 	private List<Lecturer> lecturerList;
-	
 	/** The lecturer service. */
 	private LecturerService lecturerService;
 

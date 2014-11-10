@@ -7,13 +7,13 @@ import de.nak.timetable.model.Lecturer;
 
 /**
  * The lecturer service implementation class.
- *
+ * 
  * @author Jan-Hendrik Popp
  */
-public class LecturerServiceImpl implements LecturerService{
+public class LecturerServiceImpl implements LecturerService {
 	/** The lecturer DAO. */
-	private LecturerDAO lecturerDAO;		
-	
+	private LecturerDAO lecturerDAO;
+
 	@Override
 	public void saveLecuter(Lecturer lecturer) {
 		lecturerDAO.save(lecturer);
@@ -38,8 +38,9 @@ public class LecturerServiceImpl implements LecturerService{
 	public Boolean lecturerExists(Lecturer lecturer) {
 		List<Lecturer> lecturers = lecturerDAO.loadAll();
 		for (Lecturer lec : lecturers) {
-			if(lecturer.equals(lec)) {
-				if(lecturer.getId() != null && lecturer.getId().equals(lec.getId()))
+			if (lecturer.equals(lec)) {
+				if (lecturer.getId() != null
+						&& lecturer.getId().equals(lec.getId()))
 					return false;
 				else
 					return true;
@@ -47,7 +48,7 @@ public class LecturerServiceImpl implements LecturerService{
 		}
 		return false;
 	}
-	
+
 	public void setLecturerDAO(LecturerDAO lecturerDAO) {
 		this.lecturerDAO = lecturerDAO;
 	}

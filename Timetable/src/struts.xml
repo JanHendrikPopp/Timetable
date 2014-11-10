@@ -8,9 +8,9 @@
 
 	<constant name="struts.ui.theme" value="timetable" />
 	<constant name="struts.ui.templateDir" value="template" />
-
+	
 	<package name="default" extends="tiles-default">
-
+	
 		<!-- Action that displays the list of lecturers. -->
 		<action name="ShowLecturerList" class="de.nak.timetable.action.ShowLecturerListAction">
 			<result type="tiles">lecturerList</result>
@@ -54,6 +54,8 @@
 		
 		<!-- Deletes the selected lecturer and shows the lecturer list again. -->
 		<action name="DeleteLecturer" class="de.nak.timetable.action.LecturerAction" method="delete">
+			<exception-mapping exception="org.springframework.dao.DataIntegrityViolationException" result="error"></exception-mapping>
+   			<result name="error">/errorDelete.jsp</result>
 			<result type="redirect">ShowLecturerList.action</result>
 		</action>
 		
@@ -87,6 +89,8 @@
 		
 		<!-- Deletes the selected century and shows the century list again. -->
 		<action name="DeleteCentury" class="de.nak.timetable.action.CenturyAction" method="delete">
+			<exception-mapping exception="org.springframework.dao.DataIntegrityViolationException" result="error"></exception-mapping>
+   			<result name="error">/errorDelete.jsp</result>
 			<result type="redirect">ShowCenturyList.action</result>
 		</action>
 		
@@ -154,6 +158,8 @@
 		
 		<!-- Deletes the selected room and shows the room list again. -->
 		<action name="DeleteRoom" class="de.nak.timetable.action.RoomAction" method="delete">
+			<exception-mapping exception="org.springframework.dao.DataIntegrityViolationException" result="error"></exception-mapping>
+   			<result name="error">/errorDelete.jsp</result>
 			<result type="redirect">ShowRoomList.action</result>
 		</action>
 		
@@ -171,6 +177,11 @@
 				<param name="excludeProperties">roomList.*\.events,roomList.*\.changeoverTime</param>
 			</result>
 		</action>
+		<action name="LoadFreeRooms" class="de.nak.timetable.action.AjaxPostFreeRoomListAction">
+			<result type="json"> 
+				<param name="excludeProperties">roomList.*\.events,roomList.*\.changeoverTime, eventChangeOverTime, eventDuration, eventStart</param>
+			</result>
+		</action>
 		<action name="LoadCenturies" class="de.nak.timetable.action.AjaxPostCenturyListAction">
 			<result type="json"> 
 				<param name="excludeProperties">centuryList.*\.events,centuryList.*\.changeoverTime</param>
@@ -181,7 +192,7 @@
 				<param name="excludeProperties">lecturerEvents.*\.lecturer.*\.events,lecturerEvents.*\.changeoverTime,lecturerId</param>
 			</result>
 		</action>
-		<action name="LoadRoomEvents" class="de.nak.timetable.action.AjaxGetRoomsAction">
+		<action name="LoadRoomEvents" class="de.nak.timetable.action.AjaxGetRoomEventsAction">
 			<result type="json">
 				<param name="excludeProperties">events.*\.lecturer.*\.events,lecturerEvents.*\.changeoverTime,lecturerId</param>
 			</result>

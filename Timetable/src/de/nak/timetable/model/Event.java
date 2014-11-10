@@ -1,4 +1,4 @@
-	package de.nak.timetable.model;
+package de.nak.timetable.model;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -20,29 +20,28 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Type;
 
-
 /**
  * Event entity.
- *
+ * 
  * @author Jan-Hendrik Popp
  */
 @Entity
 public class Event {
-	
+	/** The event type */
 	public enum EventType {
 		LECT(0), SEM(0), EXAM(30);
-		
+		/** The min change over time of the room type */
 		private Integer minChangeOverTime;
-		
+
 		private EventType(Integer time) {
 			this.minChangeOverTime = time;
 		}
-		
+
 		public Integer getMinChangeOverTime() {
 			return minChangeOverTime;
 		}
 	}
-	
+
 	/** The identifier. */
 	private Long id;
 	/** The event's name. */
@@ -55,33 +54,33 @@ public class Event {
 	/** The lecturer's changeover Time. */
 	private Integer changeoverTime;
 	/** wöch. Wiederhl. */
-	private Integer weeklyRecurrence;
+	private Integer weeklyRecurrence = 0;
 	/** The lecturer */
 	private Lecturer lecturer;
-	
+	/** The event's rooms */
 	private Set<Room> rooms;
-	
+	/** The events's centuries */
 	private Set<Century> centuries;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getId() {
 		return id;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	@Column(length = 20, nullable = false)
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	@Enumerated(EnumType.STRING)
 	public EventType getType() {
 		return type;
@@ -91,16 +90,16 @@ public class Event {
 		this.type = type;
 	}
 
-	@Type(type="timestamp")
+	@Type(type = "timestamp")
 	@Column(name = "event_start", nullable = false)
 	public Date getEventStart() {
 		return eventStart;
 	}
-	
+
 	public void setEventStart(Date eventStart) {
 		this.eventStart = eventStart;
 	}
-	
+
 	@Column(nullable = false)
 	public Integer getDuration() {
 		return duration;
@@ -114,11 +113,11 @@ public class Event {
 	public Integer getChangeoverTime() {
 		return changeoverTime;
 	}
-	
+
 	public void setChangeoverTime(Integer changeoverTime) {
 		this.changeoverTime = changeoverTime;
 	}
-	
+
 	@Column(name = "weekly_recurrence", scale = 2, nullable = false)
 	public Integer getWeeklyRecurrence() {
 		return weeklyRecurrence;
@@ -137,8 +136,8 @@ public class Event {
 	public void setLecturer(Lecturer lecturer) {
 		this.lecturer = lecturer;
 	}
-	
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy="events")
+
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "events")
 	public Set<Room> getRooms() {
 		return rooms;
 	}
@@ -147,7 +146,7 @@ public class Event {
 		this.rooms = rooms;
 	}
 
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy="events")
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "events")
 	public Set<Century> getCenturies() {
 		return centuries;
 	}
@@ -156,9 +155,8 @@ public class Event {
 		this.centuries = centuries;
 	}
 
-	
 	public boolean changeOverTimeIsValid() {
-		return(this.changeoverTime >= this.type.getMinChangeOverTime());
+		return (this.changeoverTime >= this.type.getMinChangeOverTime());
 	}
 
 	@Override
@@ -168,22 +166,22 @@ public class Event {
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
-		if(this == obj)
+		if (this == obj)
 			return true;
-		if(obj == null)
+		if (obj == null)
 			return false;
-		if(getClass() != obj.getClass())
+		if (getClass() != obj.getClass())
 			return false;
 		final Event other = (Event) obj;
-		if(id == null) {
-			if(other.id != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}
-	
+
 }

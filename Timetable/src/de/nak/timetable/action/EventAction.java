@@ -13,72 +13,70 @@ import de.nak.timetable.model.Room;
 import de.nak.timetable.service.CollisionService;
 import de.nak.timetable.service.EventService;
 
-public class EventAction extends ActionSupport{
-
+/**
+ * Action for a single event.
+ * 
+ * @author Paul Becker
+ */
+public class EventAction extends ActionSupport {
 	/** Serial version UID. */
 	private static final long serialVersionUID = 1940905497184033698L;
-
 	/** The current event. */
 	private Event event;
-	
 	/** The event's identifier selected by the user. */
 	private Long eventId;
-	
 	/** The event service. */
 	private EventService eventService;
-	
 	/** The event service. */
 	private CollisionService collisionService;
-	
-	/** */
+	/** Check proceed while Collisions */
 	private Boolean proceed = false;
-	
-	/** */
+	/** The selected lecturer id */
 	private Long lecturerId;
-	
+	/** The selected room ids */
 	private List<Long> roomIds;
-	
+	/** The selected century Ids */
 	private List<Long> centuryIds;
-	
-	/** */
+	/** The selected lecturer name */
 	private String lecturerName = "";
-	
+	/** The selected room names */
 	private String roomNames = "";
-	
-	private String centuryNames ="";
-	
+	/** The selected centruy names */
+	private String centuryNames = "";
+
 	/**
 	 * Saves the event to the database.
-	 *
+	 * 
 	 * @return the result string.
 	 */
 	public String save() {
-		if(event.getId() != null) {
+		if (event.getId() != null) {
 			Event dbEvent = eventService.loadEvent(event.getId());
 			event.setRooms(dbEvent.getRooms());
 			event.setLecturer(dbEvent.getLecturer());
+			event.setCenturies(dbEvent.getCenturies());
 		}
-		
+
 		eventService.saveEvent(event, lecturerId, roomIds, centuryIds);
 		return SUCCESS;
 	}
-	
+
 	/**
 	 * Deletes the selected event from the database.
-	 *
+	 * 
 	 * @return the result string.
 	 */
 	public String delete() {
 		event = eventService.loadEvent(eventId);
-		if(event != null) {
+		if (event != null) {
 			eventService.deleteEvent(event);
 		}
 		return SUCCESS;
 	}
-	
+
 	/**
 	 * Displays the selected event in the event form.
-	 *
+	 * 
 	 * @return the result string.
 	 */
 	public String load() {
@@ -86,48 +84,51 @@ public class EventAction extends ActionSupport{
 		setTextDependences(event);
 		return SUCCESS;
 	}
-	
+
 	/**
-	 * Cancels the editing.
-	 * This method is implemented in order to avoid problems with parameter submit and validation.
-	 * A direct link to the "ShowEventList" action does work but results in multiple stack traces in the
-	 * application's log.
-	 *
+	 * Cancels the editing. This method is implemented in order to avoid
+	 * problems with parameter submit and validation. A direct link to the
+	 * "ShowEventList" action does work but results in multiple stack traces in
+	 * the application's log.
+	 * 
 	 * @return the result string.
 	 */
 	public String cancel() {
 		return SUCCESS;
 	}
-	
+
 	@Override
 	public void validate() {
-		if(event != null) {
-			if(event != null && !eventService.changeOverTimeIsValid(event)) {
+		if (event != null) {
+			if (event != null && !eventService.changeOverTimeIsValid(event)) {
 				addActionError(getText("msg.validator.incorrect.event.changeOverTime"));
-			} else if(!proceed) {
-				List<String> errors = collisionService.getAllCollisions(event, lecturerId, roomIds, centuryIds);
+			} else if (!proceed) {
+				List<String> errors = collisionService.getAllCollisions(event,
+						lecturerId, roomIds, centuryIds);
 				for (String error : errors) {
 					addActionError(error);
 				}
 			}
 		}
 	}
-	
+
 	private void setTextDependences(Event event) {
-		if(event.getLecturer() != null) {
+		if (event.getLecturer() != null) {
 			Lecturer lecturer = event.getLecturer();
 			lecturerId = lecturer.getId();
 			lecturerName = lecturer.getTitle() + " " + lecturer.getName();
 		}
-		if(event.getRooms() != null) {
-			for(Room room : event.getRooms()) {
+		if (event.getRooms() != null) {
+			for (Room room : event.getRooms()) {
 				String roomName = room.getBuilding() + room.getNumber();
 				roomNames = roomNames + " " + roomName;
 			}
 		}
-		if(event.getCenturies() != null) {
-			for(Century century : event.getCenturies()) {
-				String centuryName = century.getMajor() + century.getYear().toString() + century.getCenturyChar();
+		if (event.getCenturies() != null) {
+			for (Century century : event.getCenturies()) {
+				String centuryName = century.getMajor()
+						+ century.getYear().toString()
+						+ century.getCenturyChar();
 				centuryNames = centuryNames + " " + centuryName;
 			}
 		}
@@ -196,7 +197,7 @@ public class EventAction extends ActionSupport{
 	public void setRoomNames(String roomNames) {
 		this.roomNames = roomNames;
 	}
-	
+
 	public String getCenturyNames() {
 		return centuryNames;
 	}
@@ -212,7 +213,5 @@ public class EventAction extends ActionSupport{
 	public void setCollisionService(CollisionService collisionService) {
 		this.collisionService = collisionService;
 	}
-	
-	
-	
+
 }

@@ -7,42 +7,46 @@ import javax.persistence.*;
 
 /**
  * Century entity.
- *
+ * 
  * @author Paul Becker
  */
 @Entity
 public class Century {
-	
+	/** The enum major */
 	public enum Major {
 		A, I, B, W
 	}
-	
+
+	/** The enum century char */
 	public enum CenturyChar {
 		A, B, C, D, E, F
 	}
-	
+
 	/** The identifier. */
 	private Long id;
+	/** The century major */
 	private Major major;
+	/** The century year */
 	private Integer year;
+	/** The century char */
 	private CenturyChar centuryChar;
 	/** The century's size. */
 	private Integer size;
 	/** The century's changeover Time. */
 	private Integer changeoverTime = 15;
-	
+	/** The events of this century */
 	private Set<Event> events;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getId() {
 		return id;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	@Enumerated(EnumType.STRING)
 	public Major getMajor() {
 		return major;
@@ -78,20 +82,18 @@ public class Century {
 	public void setSize(Integer size) {
 		this.size = size;
 	}
-	
+
 	@Column(name = "changeover_time", scale = 15, nullable = false)
 	public Integer getChangeoverTime() {
 		return changeoverTime;
 	}
-	
+
 	public void setChangeoverTime(Integer changeoverTime) {
 		this.changeoverTime = changeoverTime;
 	}
-	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
-    @JoinTable(name="CENTURY_EVENT",
-                joinColumns={@JoinColumn(name="CENTURY_ID")},
-                inverseJoinColumns={@JoinColumn(name="EVENT_ID")})
+
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	@JoinTable(name = "CENTURY_EVENT", joinColumns = { @JoinColumn(name = "CENTURY_ID") }, inverseJoinColumns = { @JoinColumn(name = "EVENT_ID") })
 	public Set<Event> getEvents() {
 		return events;
 	}
@@ -105,58 +107,68 @@ public class Century {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((major == null) ? 0 : major.hashCode());
-		result = prime * result + ((centuryChar == null) ? 0 : major.hashCode());
+		result = prime * result
+				+ ((centuryChar == null) ? 0 : major.hashCode());
 		result = prime * result + ((year == null) ? 0 : major.hashCode());
 		return result;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
-		if(this == obj)
+		if (this == obj)
 			return true;
-		if(obj == null)
+		if (obj == null)
 			return false;
-		if(getClass() != obj.getClass())
+		if (getClass() != obj.getClass())
 			return false;
 		final Century other = (Century) obj;
-		if(major == null) {
-			if(other.major != null)
+		if (major == null) {
+			if (other.major != null)
 				return false;
-		} else if(!major.equals(other.major))
+		} else if (!major.equals(other.major))
 			return false;
-		if(centuryChar == null) {
-			if(other.centuryChar != null)
+		if (centuryChar == null) {
+			if (other.centuryChar != null)
 				return false;
-		} else if(!centuryChar.equals(other.centuryChar))
+		} else if (!centuryChar.equals(other.centuryChar))
 			return false;
-		if(year == null) {
-			if(other.year != null)
+		if (year == null) {
+			if (other.year != null)
 				return false;
-		} else if(!year.equals(other.year))
+		} else if (!year.equals(other.year))
 			return false;
 		return true;
 	}
-	
+
+	/**
+	 * Associates the given event to the century.
+	 * 
+	 * @param event
+	 *            The event to associate.
+	 */
 	public void associateEvent(Event event) {
-		if(event == null) {
+		if (event == null) {
 			throw new IllegalArgumentException();
 		}
-		if(event.getCenturies() == null) {
+		if (event.getCenturies() == null) {
 			event.setCenturies(new HashSet<Century>());
 		}
-		if(event.getCenturies().contains(this)) {
+		if (event.getCenturies().contains(this)) {
 			event.getCenturies().add(this);
 		}
-		if(!events.contains(event)) {
+		if (!events.contains(event)) {
 			events.add(event);
 		}
 	}
-	
+
+	/**
+	 * Detaches event from this century.
+	 */
 	public void detachEvent(Event event) {
-		if(event == null) {
+		if (event == null) {
 			throw new IllegalArgumentException();
 		}
-		if(event.getCenturies().contains(this)) {
+		if (event.getCenturies().contains(this)) {
 			event.getCenturies().remove(this);
 		}
 		events.remove(event);

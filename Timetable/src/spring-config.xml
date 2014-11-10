@@ -22,7 +22,7 @@
 				<prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.format_sql">true</prop>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
 				<prop key="hibernate.hbm2ddl.import_files">import.sql</prop>
 			</props>
 		</property>
@@ -81,7 +81,6 @@
 		<!-- Event DAO -->
 	<bean id="eventDAO" class="de.nak.timetable.dao.EventDAO">
 		<property name="sessionFactory" ref="sessionFactory"/>
-		<property name="lecturerDAO" ref="lecturerDAO"/>
 	</bean>
 	
 	<!-- Event Service -->
@@ -95,7 +94,7 @@
 	
 	<bean id="timeCollisionValidator" class="de.nak.timetable.validators.TimeCollisionValidator" />
 	
-	<bean id="lecturerValidator" class="de.nak.timetable.service.LecturerCollisionValidator">
+	<bean id="lecturerValidator" class="de.nak.timetable.validators.LecturerCollisionValidator">
 		<property name="timeCollisionValidator" ref="timeCollisionValidator"/>
 	</bean>
 	

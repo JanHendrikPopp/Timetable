@@ -10,13 +10,18 @@ var lecturerName = $("#EditEvent_lecturerName, #AddEvent_lecturerName, #SaveEven
 var roomNames = $("#EditEvent_roomNames, #AddEvent_roomNames, #SaveEvent_roomNames");
 var centuryNames= $("#EditEvent_centuryNames, #AddEvent_centuryNames, #SaveEvent_centuryNames");
 
+var eventStart = $("#EditEvent_event_eventStart, #AddEvent_event_eventStart, #SaveEvent_event_eventStart");
+var eventDuration = $("#EditEvent_event_duration, #AddEvent_event_duration, #SaveEvent_event_duration");
+var eventChangeOverTime = $("#EditEvent_event_changeoverTime, #AddEvent_event_changeoverTime, #SaveEvent_event_changeoverTime");
+var eventWeeklyRecurrence = $("#EditEvent_event_weeklyRecurrence, #AddEvent_event_weeklyRecurrence, #SaveEvent_event_weeklyRecurrence");
+
 var roomsDiv = $("#rooms");
 var centuriesDiv = $("#centuries");
 
 
 $(document).ready(function() {
 	
-    $('.addLecturer-dataTable').dataTable( {
+    $('.addLecturer-dataTable, .addRoom-dataTable, .addCentury-dataTable').dataTable( {
         searching: true,
         paging: true,
         info: false,
@@ -64,6 +69,11 @@ function openAllRoomsModal() {
 	initializeRoomTable();
 }
 
+function openFreeRoomsModal() {
+	roomModal.modal('show');
+	initializeFreeRoomTable();
+}
+
 function openCenturyModal() {
 	centuryModal.modal('show');
 	initializeCenturyTable();
@@ -75,6 +85,23 @@ function initializeRoomTable() {
     table.draw();
     
     $.getJSON('LoadRooms', function (obj) {
+        jQuery.each(obj, function (i,val) {
+            jQuery.each(val, function (e,value) {
+                addRoomRow(value);
+            });
+        });
+    });
+}
+
+function initializeFreeRoomTable() {
+	var table = roomTable.DataTable();
+    table.clear();
+    table.draw();
+    var duration = '&eventDuration=' + eventDuration.val();
+    var changeOver = '&eventChangeOverTime=' + eventChangeOverTime.val();
+    var rec = '&eventWeeklyRecurrence=' + eventWeeklyRecurrence.val();
+    var start = '&eventStart=' + eventStart.val();
+    $.getJSON('LoadFreeRooms', duration + changeOver + rec + start, function (obj) {
         jQuery.each(obj, function (i,val) {
             jQuery.each(val, function (e,value) {
                 addRoomRow(value);
@@ -113,7 +140,7 @@ function initializeTable() {
 
 function addRow(value) {
     var t = lecturerTable.DataTable();
-    var gender = value.gender;
+    var gender = timetable.localization.gender[value.gender];
     var title = value.title;
     var name = value.name;
     var link = '<a href="javascript:setLecturer(';
@@ -121,7 +148,7 @@ function addRow(value) {
     var link = link.concat(", '");
     var link = link.concat(title + ' ' + value.name);
     var link = link.concat("'");
-    var link = link.concat(')" title="Add lecturer">Teeest</a>');
+    var link = link.concat(')" title="Add lecturer"><i class="fa fa-plus"></i></a>');
     t.row.add( [
         gender,
         title,
@@ -133,14 +160,14 @@ function addRow(value) {
 function addRoomRow(value) {
     var t = roomTable.DataTable();
     var number = value.building + value.number;
-    var type = value.type;
+    var type = timetable.localization.roomType[value.type];;
     var capacity = value.capacity;
     var link = '<a href="javascript:addRoom(';
     var link = link.concat(value.id);
     var link = link.concat(", '");
     var link = link.concat(number);
     var link = link.concat("'");
-    var link = link.concat(')" title="Add lecturer">Teeest</a>');
+    var link = link.concat(')" title="Add lecturer"><i class="fa fa-plus"></i></a>');
     t.row.add( [
         number,
         type,
@@ -159,7 +186,7 @@ function addCenturyRow(value) {
     var link = link.concat(", '");
     var link = link.concat(name);
     var link = link.concat("'");
-    var link = link.concat(')" title="Add Century">Teeest</a>');
+    var link = link.concat(')" title="Add Century"><i class="fa fa-plus"></i></a>');
     t.row.add( [
         name,
         major,

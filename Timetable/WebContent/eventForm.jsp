@@ -27,6 +27,7 @@
 		</div>
 		<s:if test="hasActionErrors()">
 	   		<c:import url="../includes/actionErrors.jsp"/>
+	   		<s:checkbox name="proceed" fieldValue="true" value="false" key="btn.proceed"/>
 		</s:if>
 	</div>
 	
@@ -42,39 +43,42 @@
 					<a href="javascript:openLecturerModal()" title="Add lecturer">
 	                	<i class="fa fa-plus-circle fa-fw"></i>Dozent auswählen
 	                </a>
-	                <a href="javascript:clearLecturer()" title="Add lecturer">
+	                <a href="javascript:clearLecturer()" title="Remove lecturer">
 	                	<i class="fa fa-trash-o fa-fw"></i>Dozenten löschen
 	                </a>
 	                <div id="rooms">
 		                <s:iterator value="event.rooms" var="room">
 		                	<s:hidden name="roomIds" value="%{#room.id}"/>
 		                </s:iterator>
+		                <s:iterator value="roomIds" var="room">
+		                	<s:hidden name="roomIds" value="%{#room}"/>
+		                </s:iterator>
 	                </div>
 	                <s:textfield name="roomNames" key="lbl.event.rooms" disabled="false"/>
 					<a href="javascript:openAllRoomsModal()" title="Add room">
-	                	<i class="fa fa-plus-circle fa-fw"></i>Raum hinzufügen
+	                	<i class="fa fa-plus-circle fa-fw"></i><s:text name="lbl.event.addRooms"/>
 	                </a>
 	                <a href="javascript:openFreeRoomsModal()" title="Add room">
-	                	<i class="fa fa-plus-circle fa-fw"></i>Freie Räume suchen
+	                	<i class="fa fa-plus-circle fa-fw"></i><s:text name="lbl.event.addFreeRooms"/>
 	                </a>
-	                <a href="javascript:clearRooms()" title="Add lecturer">
-	                	<i class="fa fa-trash-o fa-fw"></i>Räume löschen
+	                <a href="javascript:clearRooms()" title="Remove Rooms">
+	                	<i class="fa fa-trash-o fa-fw"></i><s:text name="lbl.event.removeRooms"/>
 	                </a>
 	                
 	                <div id="centuries">
 		                <s:iterator value="event.centuries" var="century">
 		                	<s:hidden name="centuryIds" value="%{#century.id}"/>
 		                </s:iterator>
+		                <s:iterator value="centuryIds" var="century">
+		                	<s:hidden name="centuryIds" value="%{#century}"/>
+		                </s:iterator>
 	                </div>
-	                <s:textfield name="centuryNames" key="lbl.event.rooms" disabled="false"/>
+	                <s:textfield name="centuryNames" key="lbl.event.centuries" disabled="false"/>
 					<a href="javascript:openCenturyModal()" title="Add Century">
-	                	<i class="fa fa-plus-circle fa-fw"></i>Zenturie hinzufügen
+	                	<i class="fa fa-plus-circle fa-fw"></i><s:text name="lbl.event.addCenturies"/>
 	                </a>
-	                <a href="javascript:openCohortModal()" title="Add Cohor">
-	                	<i class="fa fa-plus-circle fa-fw"></i>Kohorte hinzufügen
-	                </a>
-	                <a href="javascript:clearCenturies()" title="Add lecturer">
-	                	<i class="fa fa-trash-o fa-fw"></i>Zenturien löschen
+	                <a href="javascript:clearCenturies()" title="Remove Century">
+	                	<i class="fa fa-trash-o fa-fw"></i><s:text name="lbl.event.removeCenturies"/>
 	                </a>
 				</div>
 			</div>
@@ -85,7 +89,6 @@
 		<div class="form-group ">
 			<s:submit key="btn.save" cssClass="btn btn-primary" action="SaveEvent"/>
 			<s:submit key="btn.cancel" cssClass="btn btn-primary" action="CancelEvent"/>
-			<s:checkbox name="proceed" fieldValue="true" value="false" label="Check Me for testing"/>
 		</div>
 	</div>
 </s:form>

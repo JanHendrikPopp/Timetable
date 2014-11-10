@@ -10,19 +10,23 @@ import de.nak.timetable.model.Room;
 import de.nak.timetable.service.LecturerService;
 import de.nak.timetable.service.RoomService;
 
-public class AjaxGetRoomsAction implements Action{
-
-	
-private Long roomId;
-	
+/**
+ * Action for Room Calender Events View.
+ * 
+ * @author Hendrik Heers
+ */
+public class AjaxGetRoomEventsAction implements Action {
+	/** The Room Id */
+	private Long roomId;
+	/** The Set of Events */
 	private Set<Event> events;
-	
+	/** The Room Service */
 	private RoomService roomService;
 
 	@Override
 	public String execute() throws Exception {
-		Room room= roomService.loadRoom(roomId);
-		if(room != null) {
+		Room room = roomService.loadRoom(roomId);
+		if (room != null) {
 			events = room.getEvents();
 		}
 		return SUCCESS;
@@ -48,5 +52,4 @@ private Long roomId;
 		this.roomService = roomService;
 	}
 
-	
 }

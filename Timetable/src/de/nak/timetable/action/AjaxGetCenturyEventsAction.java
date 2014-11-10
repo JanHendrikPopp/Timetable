@@ -8,18 +8,23 @@ import de.nak.timetable.model.Century;
 import de.nak.timetable.model.Event;
 import de.nak.timetable.service.CenturyService;
 
-public class AjaxGetCenturyEventsAction implements Action{
-
+/**
+ * Action for Century Calender Events View.
+ * 
+ * @author Hendrik Heers
+ */
+public class AjaxGetCenturyEventsAction implements Action {
+	/** The century Id */
 	private Long centuryId;
-	
+	/** The Set of events */
 	private Set<Event> centuryEvents;
-	
+	/** The century Service */
 	private CenturyService centuryService;
 
 	@Override
 	public String execute() throws Exception {
 		Century century = centuryService.loadCentury(centuryId);
-		if(century != null) {
+		if (century != null) {
 			centuryEvents = century.getEvents();
 		}
 		return SUCCESS;
@@ -44,5 +49,5 @@ public class AjaxGetCenturyEventsAction implements Action{
 	public void setCenturyService(CenturyService centuryService) {
 		this.centuryService = centuryService;
 	}
-	
+
 }

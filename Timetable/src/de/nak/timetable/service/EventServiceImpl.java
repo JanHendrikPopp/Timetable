@@ -21,11 +21,11 @@ import de.nak.timetable.model.Room;
 public class EventServiceImpl implements EventService {
 	/** The event DAO. */
 	private EventDAO eventDAO;
-	
+	/** The lecturer DAO */
 	private LecturerDAO lecturerDAO;
-	
+	/** The room DAO */
 	private RoomDAO roomDAO;
-	
+	/** The century DAO */
 	private CenturyDAO centuryDAO;
 
 	@Override
@@ -87,6 +87,12 @@ public class EventServiceImpl implements EventService {
 		return eventDAO.loadAll();
 	}
 	
+	/**
+	 * Detaches all rooms
+	 * 
+	 * @param event
+	 *            The event.
+	 */
 	private void detachRooms(Event event) {
 		Set<Room> eventRooms = event.getRooms();
 		Iterator<Room> roomIterator = eventRooms.iterator();
@@ -100,6 +106,12 @@ public class EventServiceImpl implements EventService {
 		eventDAO.save(event);
 	}
 
+	/**
+	 * Detaches all centuries
+	 * 
+	 * @param event
+	 *            The event.
+	 */
 	private void detachCenturies(Event event) {
 		Set<Century> eventCenturies = event.getCenturies();
 		Iterator<Century> centuryIterator = eventCenturies.iterator();
@@ -136,9 +148,5 @@ public class EventServiceImpl implements EventService {
 		}
 		return false;
 	}
-	
-	
-	
-	
 	
 }

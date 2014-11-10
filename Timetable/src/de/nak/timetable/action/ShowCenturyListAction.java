@@ -9,13 +9,12 @@ import de.nak.timetable.service.CenturyService;
 
 /**
  * Action that shows a list of centuries.
- *
+ * 
  * @author Paul Becker
  */
-public class ShowCenturyListAction implements Action{
+public class ShowCenturyListAction implements Action {
 	/** The list of centuries. */
 	private List<Century> centuryList;
-	
 	/** The century service. */
 	private CenturyService centuryService;
 

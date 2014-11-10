@@ -9,16 +9,15 @@ import de.nak.timetable.service.EventService;
 
 /**
  * Action that shows a list of events.
- *
+ * 
  * @author Jan-Hendrik Popp
  */
-public class ShowEventListAction implements Action{
+public class ShowEventListAction implements Action {
 	/** The list of events. */
 	private List<Event> eventList;
-	
 	/** The event service. */
 	private EventService eventService;
-	
+
 	@Override
 	public String execute() throws Exception {
 		eventList = eventService.loadAllEvents();
@@ -32,7 +31,5 @@ public class ShowEventListAction implements Action{
 	public void setEventService(EventService eventService) {
 		this.eventService = eventService;
 	}
-	
-	
 
 }

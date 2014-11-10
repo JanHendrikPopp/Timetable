@@ -1,5 +1,6 @@
 package de.nak.timetable.validators;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -10,10 +11,24 @@ import de.nak.timetable.model.Century;
 import de.nak.timetable.model.Event;
 import de.nak.timetable.model.Room;
 
+/**
+ * The Century Validator
+ * 
+ * @author Hendrik Heers
+ */
 public class CenturyCollisionValidator {
-
+	/** The time collision validator */
 	private TimeCollisionValidator timeCollisionValidator;
 	
+	
+	/**
+	 * Validates the event <> century
+	 * 
+	 * @param event
+	 *            The event.
+	 * @param century
+	 *            The century.
+	 */
 	public List<String> validate(Event event, Century century) {
 		List<String> errors = new ArrayList<String>();
 		
@@ -44,15 +59,24 @@ public class CenturyCollisionValidator {
 		return errors;
 	}
 	
+	/**
+	 * Generates an error message.
+	 * 
+	 * @param event
+	 *            The event.
+	 * @param century
+	 *            The century.
+	 */
 	private String generateErrorMessage(Event event, Century century) {
 		Locale locale = Locale.getDefault();
 		ResourceBundle bundle = ResourceBundle.getBundle("messages", locale);
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		
 		String error = bundle.getString("error.timeValidation.CenturyMessage");
 		error = error + " " + bundle.getString("error.timeValidation.Century");
 		error = error + " " + century.getMajor() + " " + century.getYear() + century.getCenturyChar() + ". ";
 		error = error + bundle.getString("error.timeValidation.Event");
-		error = error + " " + event.getName();
+		error = error + " " + event.getName() + " - " + sdf.format(event.getEventStart());
 		return error;
 	}
 

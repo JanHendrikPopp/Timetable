@@ -22,6 +22,15 @@
                 previous: '<s:text name="datatable.previous"/>',
                 sortAscending: '<s:text name="datatable.sortAscending"/>',
                 sortDescending: '<s:text name="datatable.sortDescending"/>'
+            },
+            gender: {
+            	MALE: '<s:text name="lbl.MALE"/>',
+            	FEMALE: '<s:text name="lbl.FEMALE"/>'
+            },
+            roomType: {
+            	LECT: '<s:text name="lbl.room.LECT"/>',
+            	LAB: '<s:text name="lbl.room.LAB"/>',
+            	PC: '<s:text name="lbl.room.PC"/>'
             }
         }
     };

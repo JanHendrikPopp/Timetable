@@ -7,28 +7,31 @@ import javax.persistence.*;
 
 /**
  * Room entity.
- *
+ * 
  * @author Paul Becker
  */
 @Entity
 public class Room {
+	/** The enum building */
 	public enum Building {
 		A, B, C, D, H
 	}
+
+	/** The enum room type */
 	public enum RoomType {
 		PC(15), LAB(0), LECT(0);
-		
+		/** The min chOvTim of the RoomType */
 		private Integer minChangeOverTime;
-		
+
 		private RoomType(Integer time) {
 			this.minChangeOverTime = time;
 		}
-		
+
 		public Integer getMinChangeOverTime() {
 			return minChangeOverTime;
 		}
 	}
-	
+
 	/** The identifier. */
 	private Long id;
 	private Building building;
@@ -40,7 +43,7 @@ public class Room {
 	private RoomType type;
 	/** The room's changeover Time. */
 	private Integer changeoverTime = 15;
-	
+	/** The events of this room */
 	private Set<Event> events;
 
 	@Id
@@ -88,20 +91,18 @@ public class Room {
 	public void setType(RoomType type) {
 		this.type = type;
 	}
-	
+
 	@Column(name = "changeover_time", scale = 15, nullable = false)
 	public Integer getChangeoverTime() {
 		return changeoverTime;
 	}
-	
+
 	public void setChangeoverTime(Integer changeoverTime) {
 		this.changeoverTime = changeoverTime;
 	}
-	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
-    @JoinTable(name="ROOM_EVENT",
-                joinColumns={@JoinColumn(name="ROOM_ID")},
-                inverseJoinColumns={@JoinColumn(name="EVENT_ID")})
+
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	@JoinTable(name = "ROOM_EVENT", joinColumns = { @JoinColumn(name = "ROOM_ID") }, inverseJoinColumns = { @JoinColumn(name = "EVENT_ID") })
 	public Set<Event> getEvents() {
 		return events;
 	}
@@ -111,40 +112,41 @@ public class Room {
 	}
 
 	public boolean changeOverTimeIsValid() {
-		return(this.changeoverTime >= this.type.getMinChangeOverTime());
+		return (this.changeoverTime >= this.type.getMinChangeOverTime());
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((building == null) ? 0 : building.hashCode());
+		result = prime * result
+				+ ((building == null) ? 0 : building.hashCode());
 		result = prime * result + ((number == null) ? 0 : number.hashCode());
 		return result;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
-		if(this == obj)
+		if (this == obj)
 			return true;
-		if(obj == null)
+		if (obj == null)
 			return false;
-		if(getClass() != obj.getClass())
+		if (getClass() != obj.getClass())
 			return false;
 		final Room other = (Room) obj;
-		if(building == null) {
-			if(other.building != null)
+		if (building == null) {
+			if (other.building != null)
 				return false;
-		} else if(!building.equals(other.building))
+		} else if (!building.equals(other.building))
 			return false;
-		if(number == null) {
-			if(other.number != null)
+		if (number == null) {
+			if (other.number != null)
 				return false;
-		} else if(!number.equals(other.number))
+		} else if (!number.equals(other.number))
 			return false;
 		return true;
 	}
-	
+
 	/**
 	 * Associates the given event to the room.
 	 * 
@@ -152,33 +154,31 @@ public class Room {
 	 *            The event to associate.
 	 */
 	public void associateEvent(Event event) {
-		if(event == null) {
+		if (event == null) {
 			throw new IllegalArgumentException();
 		}
-		if(event.getRooms() == null) {
+		if (event.getRooms() == null) {
 			event.setRooms(new HashSet<Room>());
 		}
-		if(event.getRooms().contains(this)) {
+		if (event.getRooms().contains(this)) {
 			event.getRooms().add(this);
 		}
-		if(!events.contains(event)) {
+		if (!events.contains(event)) {
 			events.add(event);
 		}
 	}
-	
-	
+
 	/**
 	 * Detaches event from this room.
 	 */
 	public void detachEvent(Event event) {
-		if(event == null) {
+		if (event == null) {
 			throw new IllegalArgumentException();
 		}
-		if(event.getRooms().contains(this)) {
+		if (event.getRooms().contains(this)) {
 			event.getRooms().remove(this);
 		}
 		events.remove(event);
 	}
-	
-	
+
 }

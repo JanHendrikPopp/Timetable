@@ -19,43 +19,43 @@
         <div class="sidebar-nav navbar-collapse">
             <ul class="nav" id="side-menu">
                 <li class="active">
-                    <a href="#"><i class="fa fa-calendar fa-fw"></i> Events<span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-calendar fa-fw"></i> <s:text name="nav.events"/><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="ShowEventList.action"><i class="fa fa-list fa-fw"></i> Overview</a>
+                            <a href="ShowEventList.action"><i class="fa fa-list fa-fw"></i> <s:text name="nav.events.overview"/></a>
                         </li>
                         <li>
-                            <a href="AddEvent.action"><i class="fa fa-pencil fa-fw"></i> Create</a>
+                            <a href="AddEvent.action"><i class="fa fa-pencil fa-fw"></i> <s:text name="nav.events.create"/></a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
                 <li class="active">
-                    <a href="#"><i class="fa fa-database fa-fw"></i> Wochenansicht<span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-database fa-fw"></i> <s:text name="nav.week"/><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="ShowRoomEvents.action"><i class="fa fa-home fa-fw"></i> Rooms</a>
+                            <a href="ShowRoomEvents.action"><i class="fa fa-home fa-fw"></i> <s:text name="nav.rooms"/></a>
                         </li>
                        <li>
-                            <a href="ShowLecturerEvents.action"><i class="fa fa-user fa-fw"></i> Lecturers</a>
+                            <a href="ShowLecturerEvents.action"><i class="fa fa-user fa-fw"></i> <s:text name="nav.lecturers"/></a>
                         </li>
                         <li>
-                            <a href="ShowCenturyEvents.action"><i class="fa fa-users fa-fw"></i> Classes</a>
+                            <a href="ShowCenturyEvents.action"><i class="fa fa-users fa-fw"></i> <s:text name="nav.centuries"/></a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
                 <li class="active">
-                    <a href="#"><i class="fa fa-database fa-fw"></i> Data<span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-database fa-fw"></i> <s:text name="nav.data"/><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="ShowRoomList.action"><i class="fa fa-home fa-fw"></i> Rooms</a>
+                            <a href="ShowRoomList.action"><i class="fa fa-home fa-fw"></i> <s:text name="nav.rooms"/></a>
                         </li>
                        <li>
-                            <a href="ShowLecturerList.action"><i class="fa fa-user fa-fw"></i> Lecturers</a>
+                            <a href="ShowLecturerList.action"><i class="fa fa-user fa-fw"></i> <s:text name="nav.lecturers"/></a>
                         </li>
                         <li>
-                            <a href="ShowCenturyList.action"><i class="fa fa-users fa-fw"></i> Classes</a>
+                            <a href="ShowCenturyList.action"><i class="fa fa-users fa-fw"></i> <s:text name="nav.centuries"/></a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
